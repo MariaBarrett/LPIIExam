@@ -41,7 +41,7 @@ import os
 import bisect
 
 #Set the global variables
-path = '/Users/Maria/Documents/ITandcognition/LanguageProcessingII/scrapeHotelReviewData-1.0/'
+path = '/Users/Maria/Documents/ITandcognition/Github/LPIIExam/scrapeHotelReviewData-1.0/'
 state = ""
 numReviewsPerPage = 10
 numHotelsPerPage = 30
