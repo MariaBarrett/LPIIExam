@@ -15,7 +15,6 @@ Remarks:
 -newline- is in the tokenized text, to show newlines. Should we remove those?
 punctuation is in separate tokens, which I didn't expect.
 contractions are tokenized like this: ['did','n't']
-Distribution: Counter({'4': 1175, '5': 675, '3': 497, '2': 172, '1': 119}) - should we accept this skewed distribution?
 """
 def make_dataset():
 	dataset = []
