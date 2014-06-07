@@ -9,7 +9,8 @@ dataset = pickle.load( open( "dataset.p", "rb" ) )
 # Dataset is shuffled and balanced, 1000 each of pos, neu and neg
 
 X_train = dataset[:2500]
-y_train = target[:2500]
+y_train = targets[:2500]
 
 X_test = dataset[2500:]
 y_test = targets[2500:]
+
