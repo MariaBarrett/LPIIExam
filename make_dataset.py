@@ -35,6 +35,7 @@ def make_dataset():
 		for sentence in review:
 			while '-newline-' in sentence:
 				sentence.remove('-newline-')
+	
 	print "Done making oversampled_dataset"
 	return targets, dataset			
 
