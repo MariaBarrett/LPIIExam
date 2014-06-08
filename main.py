@@ -79,6 +79,11 @@ def baseline(y_train,y_test):
 	return score/len(y_test)
 
 
+"""check(X_train,features) 
+This function requires the transformed dataset as input.
+	It checks whether the words used as features are even appearing in the train set. 
+	It returns the unused features if there are any.
+"""
 def check(X_train,features):
 	unused_features = []
 	check = np.zeros(len(features))
@@ -100,7 +105,7 @@ def check(X_train,features):
 bpol_Xtrain = [binary_polarityfeatures(d,word_features,mode="sklearn") for d in X_train]
 bpol_Xtest = [binary_polarityfeatures(d,word_features,mode="sklearn") for d in X_test]
 
-print check(bpol_Xtrain,word_features)
+print "Unused features: \t",check(bpol_Xtrain,word_features)
 
 print "Baseline result: \t",baseline(y_train,y_test)
 
