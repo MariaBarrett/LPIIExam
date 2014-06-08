@@ -6,7 +6,7 @@ from sklearn import svm, naive_bayes, grid_search
 from sklearn.metrics import classification_report
 from sklearn.ensemble import ExtraTreesClassifier
 import pylab as pl
-
+import operator
 
 targets = pickle.load( open( "targets_easy.p", "rb" ) )
 dataset = pickle.load( open( "dataset_easy.p", "rb" ) )
@@ -96,8 +96,9 @@ def inspect_tree_selection(train_data,train_labels, all_bigrams, task):
 	pl.title("%s: Sorted tree selection feature importance" %(task))
 	pl.bar(range(n), importances[indices][:n], color="black", align="center")
 	pl.xlim([-1, (n)])
-	pl.show()
-
+	pl.savefig('test.pdf', bbox_inches='tight')
+	print "plot saved"
+	
 
 
 """
@@ -120,11 +121,13 @@ def binarize(dataset, all_ngrams, ngr):
 	return(np.asarray(binary_dataset))
 
 def supvecmac(X_train, y_train, X_test, y_test):
+	print "Starting 5-fold cross validation"
+
 	parameters = {'C': [ 4, 8, 16, 32, 64], 'gamma':[0.001, 0.01, 0.1, 1,]}
 	svr = svm.SVC()
 	clf = grid_search.GridSearchCV(svr, parameters)
-
 	clf.fit(X_train, y_train)
+
 	print "Done finding parameter settings, now starting to predict"
 	print "Best parameters: ", clf.best_params_
 	print "\nSVM Accuracy", clf.score(X_test, y_test)
@@ -140,13 +143,90 @@ def document_features(review, all_ngrams, ngr):
     for ngram in all_ngrams:
         features[ngram] = (ngram in review_ngrams)
     return features
+
+##########################################################################
+#
+#				Crossvalidation
+#
+#########################################################################
+
+"""
+This function splits the train set in s equal sized splits. 
+It expects the features and number of slices. 
+It starts by making a copy 
+It returns a list of s slices containg lists of datapoints belonging to s.
+"""
+def sfold(features, s):
+	featurefold = np.copy(features)
+	feature_slices = [featurefold[i::s] for i in xrange(s)]
+	return feature_slices
+
+
+
+"""
+The function expects a train set, a 1D list of train labels and number of folds. 
+The function has dicts of all C's and gammas and number of features. For each combination it runs 5 fold crossvalidation: 
+For every test-set for as many folds as there are: use the remaining as train sets (exept if it's the test set.) 
+Then we sum up the test and train result for every run and average it. The average performances per combination is stored.
+The lowest test average and the combination that produced it is returned with the train error rate.   
+"""
+def crossval(X_train, y_train, folds, ngr):
+	# Set the parameters by cross-validatiom
+	tuned_parameters = {'Num_features': [100, 500, 1000, 2000, 4000, 8000, 16000]}
+	accuracy = []
+
+	#gridsearch
+	print "Starting %s fold cross validation for finding best number of features" %(folds)
+	for num in tuned_parameters['Num_features']:
+		joint = zip(X_train, y_train)
+		all_bigr_nltk = ngram(X_train, ngr, num)
+		featuresets = [(document_features(d, all_bigr_nltk, ngr), c) for (d,c) in joint]
+		features_slices = sfold(featuresets, folds)
+
+		temp = []
+		#crossvalidation
+		for f in xrange(folds):
+			crossvaltrain = []
+			#define test-set for this run
+			crossvaltest = np.array(features_slices[f])
+			
+			#define train set for this run
+			for i in xrange(folds): #putting content of remaining slices in the train set 
+				if i != f: # - if it is not the test slice: 
+					for elem in features_slices[i]:
+						crossvaltrain.append(elem) #making a list of trainset for this run
+
+			crossvaltrain_c = np.copy(crossvaltrain)
+			crossvaltest_c = np.copy(crossvaltest)
+
+			#taking only the num first features
+			[crossvaltrain_c[i][:num] for i in range(len(crossvaltrain))]
+			[crossvaltest_c[i][:num] for i in range(len(crossvaltest))]
+
+			#Classifying using library function
+			clf = nltk.NaiveBayesClassifier.train(crossvaltrain_c)
+			acc = nltk.classify.accuracy(clf, crossvaltest_c)			
+
+			temp.append(acc)
+
+		#for every num, get the average performance of the 5 runs:
+		testmean = np.array(np.mean(temp))
+		print "Average accuracy of %s features: %.6f" %(num, testmean)
+		accuracy.append([num, testmean])
+
+	#After all combinations have been tried get the best performance and the hyperparam pairs for that:
+	accuracy.sort(key=operator.itemgetter(1)) #sort by error - lowest first
+	bestperf = accuracy[0][-1]
+	bestnum = accuracy[0][0]
+	print "\nBest number of features = %s: test error = %.6f" %(bestnum, bestperf)
+	return bestnum
+
+
 #######################################################################################
 #
 #					Calling
 #
 #######################################################################################
-
-
 
 #Bigram
 print "*"*45
@@ -154,27 +234,36 @@ print "n-gram"
 print "*"*45
 
 print "-"*45
-print "Bigram"
+print "Bigram Naive Bayes"
 print "-"*45
 
 # NLTK
 
 joint_for_nltk = zip(X_train + X_test, y_train + y_test)
 
-"""
-all_bigr_nltk = ngram(X_train, 'bigram', 400)
+best_num_feats = crossval(X_train, y_train, 5, 'bigram')
+
+#Extracting only best number of features (starting from most frequent in decending order)
+#NLTK wants the label in the last position
+all_bigr_nltk = ngram(X_train, 'bigram', best_num_feats)
 bi_featuresets = [(document_features(d, all_bigr_nltk, 'bigram'), c) for (d,c) in joint_for_nltk]
 bi_train_for_nltk = bi_featuresets[:2500]
 bi_test_for_nltk = bi_featuresets[2500:]
 
-clf_bi = nltk.NaiveBayesClassifier.train(bi_train_for_nltk)
+bi_train_for_nltk_optimized = [bi_train_for_nltk[i][:best_num_feats] for i in range(len(bi_train_for_nltk))]
+bi_test_for_nltk_optimized = [bi_test_for_nltk[i][:best_num_feats] for i in range(len(bi_test_for_nltk))]
 
-print "NTLK Naive Bayes bigram accuracy:", nltk.classify.accuracy(clf_bi, bi_test_for_nltk)
+clf_bi = nltk.NaiveBayesClassifier.train(bi_train_for_nltk_optimized)
+print "NTLK Naive Bayes bigram accuracy using best number of features:", nltk.classify.accuracy(clf_bi, bi_test_for_nltk_optimized)
 clf_bi.show_most_informative_features(20)
 print ""
-"""
+
 #Sklearn
-all_bigr = ngram(X_train, 'bigram', 3000)
+print "-"*45
+print "Bigram SVM"
+print "-"*45
+
+all_bigr = ngram(X_train, 'bigram', 5000)
 
 print "Done making bigrams from train set"
 print "Making bigrams and binarizing train set..."
@@ -183,10 +272,12 @@ print "Done"
 print "Making bigrams and binarizing test set..."
 X_test_bigram = binarize(X_test, all_bigr, 'bigram')
 
-inspect_tree_selection(X_train_bigram, y_train, all_bigr, 'Bigram')
-indices_important_feats = tree_selection(X_train_bigram, y_train, 1000)
+print "Starting feature selection using CART random forests"
+inspect_tree_selection(X_train_bigram, y_train, all_bigr, 'bigram')
+indices_important_feats = tree_selection(X_train_bigram, y_train, 750)
 X_train_bigram_feat_sel = X_train_bigram[:,indices_important_feats]
 X_test_bigram_feat_sel = X_test_bigram[:,indices_important_feats]
+print "Done"
 
 """
 clf = naive_bayes.GaussianNB()
@@ -195,32 +286,33 @@ clf.fit(X_train_bigram, y_train)
 score = clf.score(X_test_bigram, y_test)
 print "GaussianNB accuracy:", score
 """ 
-
-print "Done"
-print "Beginning SVM with %s most important features" %(len(indices_important_feats))
 supvecmac(X_train_bigram_feat_sel, y_train, X_test_bigram_feat_sel, y_test)
 
 
 #Trigram
-
 print "-"*45
-print "Trigram"
+print "Trigram Naive Bayes "
 print "-"*45
+best_num_feats = crossval(tri_train_for_nltk, y_train, 5, 'trigram')
 
-#Naive Bayes
-all_trigr_nltk = ngram(X_train, 'trigram', 10000)
-tri_featuresets = [(document_features(d, all_trigr_nltk, 'trigram'), c) for (d,c) in joint_for_nltk]
-tri_train_for_nltk = tri_featuresets[:2500]
-tri_test_for_nltk = tri_featuresets[2500:]
+all_tri_nltk = ngram(X_train, 'trigram', best_num_feats)
+tri_featuresets = [(document_features(d, all_tri_nltk, 'bigram'), c) for (d,c) in joint_for_nltk]
+tri_train_for_nltk = bi_featuresets[:2500]
+tri_test_for_nltk = bi_featuresets[2500:]
 
-clf_tri = nltk.NaiveBayesClassifier.train(tri_train_for_nltk)
+tri_train_for_nltk_optimized = [tri_train_for_nltk[i][:best_num_feats] for i in range(len(tri_train_for_nltk))]
+tri_test_for_nltk_optimized = [tri_test_for_nltk[i][:best_num_feats] for i in range(len(tri_test_for_nltk))]
 
-print "Naive Bayes trigram accuracy:", nltk.classify.accuracy(clf_tri, tri_test_for_nltk)
+clf_tri = nltk.NaiveBayesClassifier.train(tri_train_for_nltk_optimized)
+print "NTLK Naive Bayes trigram accuracy using best number of features:", nltk.classify.accuracy(clf_tri, tri_test_for_nltk_optimized)
 clf_tri.show_most_informative_features(20)
 print ""
 
 #Sklearn
-all_trigr = ngram(X_train, 'trigram', 70)
+print "-"*45
+print "Trigram SVM "
+print "-"*45
+all_trigr = ngram(X_train, 'trigram', 5000)
 print "Done making trigrams from train set"
 print "Making trigrams and binarizing train set..."
 
@@ -228,11 +320,16 @@ X_train_trigram = binarize(X_train, all_trigr, 'trigram')
 print "Done"
 print "Making trigrams and binarizing test set..."
 X_test_trigram = binarize(X_test, all_trigr, 'trigram')
-
 print "Done"
-print "Beginning Support Vector Machines"
-acc = supvecmac(X_train_trigram, y_train, X_test_trigram, y_test)
-print "SVM Accuracy", acc
+
+print "Starting feature selection using CART random forests"
+inspect_tree_selection(X_train_trigram, y_train, all_bigr, 'trigram')
+indices_important_feats = tree_selection(X_train_trigram, y_train, 750)
+X_train_trigram_feat_sel = X_train_trigram[:,indices_important_feats]
+X_test_trigram_feat_sel = X_test_trigram[:,indices_important_feats]
+print "Done"
+
+supvecmac(X_train_trigram, y_train, X_test_trigram, y_test)
 
 
 
