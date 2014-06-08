@@ -30,6 +30,11 @@ def make_dataset():
 			for sent in sentences:
 				temp.append(nltk.word_tokenize(sent))
 			dataset.append(temp)
+	
+	for review in dataset:
+		for sentence in review:
+			while '-newline-' in sentence:
+				sentence.remove('-newline-')
 	print "Done making oversampled_dataset"
 	return targets, dataset			
 
@@ -61,7 +66,6 @@ def balancedataset(oversampled_targets, oversampled_dataset):
 			rate5.append(oversampled_dataset[i])
 	
 	balanced_dataset = rate1[:420]+rate2[:580]+rate3[:1000]+rate4[:500]+rate5[:500]
-	print len(balanced_dataset)
 	# changing targets to 0 for negative, 1 for middle and 2 for positive
 	balanced_targets = [0]*1000+[1]*1000+[2]*1000
 
