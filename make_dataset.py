@@ -67,8 +67,8 @@ def balancedataset(oversampled_targets, oversampled_dataset):
 		elif oversampled_targets[i] == '5':
 			rate5.append(oversampled_dataset[i])
 	
-	#balanced_dataset = 	random.sample(rate1, n)+random.sample(rate3, n)+random.sample(rate5, n)
-	balanced_dataset = random.sample(rate1, 500)+random.sample(rate2, 500)+random.sample(rate3, n)+random.sample(rate4, 500)+random.sample(rate5, 500)
+	balanced_dataset = 	random.sample(rate1, n)+random.sample(rate3, n)+random.sample(rate5, n)
+	#balanced_dataset = random.sample(rate1, 500)+random.sample(rate2, 500)+random.sample(rate3, n)+random.sample(rate4, 500)+random.sample(rate5, 500)
 
 	# changing targets to 0 for negative, 1 for middle and 2 for positive
 	balanced_targets = [0]*n+[1]*n+[2]*n
