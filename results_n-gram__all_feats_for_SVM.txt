@@ -1,0 +1,494 @@
+*********************************************
+n-gram
+*********************************************
+---------------------------------------------
+Bigram Naive Bayes
+---------------------------------------------
+Starting 5 fold cross validation for finding best number of features
+Using 500 most frequent bigrams out of 67052
+Average accuracy of 500 features: 0.606800
+Using 1000 most frequent bigrams out of 67052
+Average accuracy of 1000 features: 0.644000
+Using 2000 most frequent bigrams out of 67052
+Average accuracy of 2000 features: 0.656000
+Using 4000 most frequent bigrams out of 67052
+Average accuracy of 4000 features: 0.667600
+Using 8000 most frequent bigrams out of 67052
+Average accuracy of 8000 features: 0.662800
+
+Best number of features = 4000: test error = 0.667600
+
+Using 4000 most frequent bigrams out of 67052
+NTLK Naive Bayes bigram accuracy using best number of features: 0.678
+Most Informative Features
+       ('will', 'never') = True                0 : 1      =     45.3 : 1.0
+       ('never', 'stay') = True                0 : 1      =     33.6 : 1.0
+    ('not', 'recommend') = True                0 : 2      =     29.1 : 1.0
+         ('i', 'called') = True                0 : 2      =     27.2 : 1.0
+        ('all', 'night') = True                0 : 2      =     25.3 : 1.0
+         ("n't", 'work') = True                0 : 2      =     24.6 : 1.0
+      ('the', 'manager') = True                0 : 2      =     22.7 : 1.0
+        ('the', 'worst') = True                0 : 2      =     21.7 : 1.0
+       ('the', 'carpet') = True                0 : 2      =     21.4 : 1.0
+          (',', 'great') = True                2 : 0      =     21.2 : 1.0
+         ('at', 'least') = True                0 : 2      =     20.8 : 1.0
+        ('they', 'said') = True                0 : 2      =     20.8 : 1.0
+         ('desk', 'and') = True                0 : 2      =     18.9 : 1.0
+         ("n't", 'even') = True                0 : 1      =     18.6 : 1.0
+        ('loved', 'the') = True                2 : 0      =     18.4 : 1.0
+        ('the', 'walls') = True                0 : 2      =     17.6 : 1.0
+            ('is', 'no') = True                0 : 2      =     17.0 : 1.0
+          ('down', 'to') = True                0 : 2      =     17.0 : 1.0
+        ('the', 'floor') = True                0 : 2      =     16.7 : 1.0
+         ('not', 'even') = True                0 : 1      =     16.6 : 1.0
+
+20^
+
+         ('paid', 'for') = True                0 : 2      =     16.3 : 1.0
+        ('said', 'they') = True                0 : 2      =     16.3 : 1.0
+    ('was', 'excellent') = True                2 : 0      =     15.6 : 1.0
+    ('to', 'everything') = True                2 : 0      =     15.6 : 1.0
+         ('rude', 'and') = True                0 : 1      =     15.3 : 1.0
+          ('again', '!') = True                2 : 1      =     15.3 : 1.0
+         ('not', 'stay') = True                0 : 2      =     15.2 : 1.0
+           ('got', 'to') = True                0 : 2      =     15.0 : 1.0
+           ('no', 'one') = True                0 : 2      =     14.4 : 1.0
+        ('not', 'clean') = True                0 : 1      =     14.0 : 1.0
+ ('very', 'comfortable') = True                2 : 0      =     13.8 : 1.0
+           (',', 'when') = True                0 : 2      =     13.8 : 1.0
+       ('very', 'clean') = True                2 : 0      =     13.7 : 1.0
+        ('said', 'that') = True                0 : 1      =     13.4 : 1.0
+        ('told', 'that') = True                0 : 1      =     13.4 : 1.0
+       ('would', 'stay') = True                1 : 0      =     13.3 : 1.0
+        ('we', 'called') = True                0 : 1      =     12.7 : 1.0
+      ('great', 'place') = True                2 : 1      =     12.6 : 1.0
+       ('great', 'view') = True                2 : 0      =     12.2 : 1.0
+         ('we', 'loved') = True                2 : 0      =     12.2 : 1.0
+       ('was', 'pretty') = True                1 : 0      =     11.9 : 1.0
+           ('do', 'not') = True                0 : 2      =     11.8 : 1.0
+         ('told', 'the') = True                0 : 2      =     11.8 : 1.0
+          ('kind', 'of') = True                0 : 2      =     11.8 : 1.0
+         ('very', 'bad') = True                0 : 2      =     11.8 : 1.0
+     ('smelled', 'like') = True                0 : 2      =     11.7 : 1.0
+  ('definitely', 'stay') = True                2 : 0      =     11.5 : 1.0
+     ('was', 'horrible') = True                0 : 1      =     11.4 : 1.0
+       ('star', 'hotel') = True                0 : 1      =     11.4 : 1.0
+      ('would', 'never') = True                0 : 1      =     11.4 : 1.0
+     ('room', 'smelled') = True                0 : 1      =     11.4 : 1.0
+  ('will', 'definitely') = True                2 : 1      =     11.2 : 1.0
+     ('the', 'elevator') = True                0 : 2      =     11.2 : 1.0
+          ('to', 'give') = True                0 : 2      =     11.2 : 1.0
+          ('not', 'get') = True                0 : 2      =     11.2 : 1.0
+       ('very', 'noisy') = True                0 : 2      =     11.2 : 1.0
+          ('great', '!') = True                2 : 0      =     10.8 : 1.0
+  ('very', 'convenient') = True                2 : 0      =     10.8 : 1.0
+        ('cable', 'car') = True                2 : 0      =     10.8 : 1.0
+  ('comfortable', 'bed') = True                2 : 0      =     10.8 : 1.0
+       ('long', 'beach') = True                2 : 0      =     10.8 : 1.0
+          ('which', 'i') = True                0 : 1      =     10.8 : 1.0
+        ('the', 'clerk') = True                0 : 1      =     10.8 : 1.0
+     ('and', 'friendly') = True                2 : 0      =     10.6 : 1.0
+       ('carpet', 'was') = True                0 : 2      =     10.6 : 1.0
+            ('bad', ',') = True                0 : 2      =     10.6 : 1.0
+         ('does', "n't") = True                0 : 2      =     10.6 : 1.0
+         ('will', 'not') = True                0 : 2      =     10.6 : 1.0
+         ('not', 'work') = True                0 : 2      =     10.6 : 1.0
+      ('wonderful', '.') = True                2 : 1      =     10.5 : 1.0
+     ('was', 'terrible') = True                0 : 1      =     10.1 : 1.0
+           ('stay', '!') = True                2 : 0      =     10.1 : 1.0
+       ('distance', '.') = True                2 : 0      =     10.1 : 1.0
+            ('if', 'it') = True                0 : 2      =      9.9 : 1.0
+            ('pay', '$') = True                0 : 2      =      9.9 : 1.0
+           ('to', 'let') = True                0 : 2      =      9.9 : 1.0
+     ('bathroom', 'and') = True                0 : 2      =      9.9 : 1.0
+      ('first', 'night') = True                0 : 2      =      9.8 : 1.0
+           ('the', 'tv') = True                0 : 2      =      9.5 : 1.0
+         ('then', 'the') = True                0 : 1      =      9.5 : 1.0
+         ('anyone', '.') = True                0 : 1      =      9.5 : 1.0
+          ('awful', '.') = True                0 : 1      =      9.5 : 1.0
+        ('when', 'they') = True                0 : 1      =      9.5 : 1.0
+           ('me', 'for') = True                0 : 1      =      9.5 : 1.0
+        ('a', 'manager') = True                0 : 1      =      9.5 : 1.0
+         ('and', 'will') = True                0 : 1      =      9.5 : 1.0
+           ('i', 'paid') = True                0 : 2      =      9.4 : 1.0
+         ('asked', 'to') = True                0 : 2      =      9.4 : 1.0
+      ('great', 'staff') = True                2 : 0      =      9.4 : 1.0
+          ('quiet', ',') = True                2 : 0      =      9.4 : 1.0
+    ('great', 'service') = True                2 : 0      =      9.4 : 1.0
+         ('was', 'told') = True                0 : 1      =      9.4 : 1.0
+         ('could', 'do') = True                0 : 2      =      9.3 : 1.0
+       ('refused', 'to') = True                0 : 2      =      9.3 : 1.0
+        ('night', 'for') = True                0 : 2      =      9.3 : 1.0
+         ('were', 'not') = True                0 : 2      =      9.3 : 1.0
+            ('bad', '.') = True                0 : 2      =      9.3 : 1.0
+         ('too', 'much') = True                0 : 2      =      9.3 : 1.0
+        ('and', 'asked') = True                0 : 2      =      9.3 : 1.0
+         ('very', 'old') = True                0 : 2      =      9.3 : 1.0
+
+---------------------------------------------
+Bigram SVM
+---------------------------------------------
+Using 67052 most frequent bigrams out of 67052
+Done making bigrams from train set
+Making bigrams and binarizing train set...
+Done
+Making bigrams and binarizing test set...
+Starting feature selection using CART random forests
+---------------------------------------------
+
+Feature ranking for bigram task:
+1. feature, name: ('a', 'great'), importance: 0.007290
+2. feature, name: ('had', 'to'), importance: 0.006394
+3. feature, name: ('was', 'not'), importance: 0.005844
+4. feature, name: (',', 'but'), importance: 0.005178
+5. feature, name: ('will', 'never'), importance: 0.004787
+6. feature, name: ('clean', 'and'), importance: 0.004415
+7. feature, name: ('did', 'not'), importance: 0.004405
+8. feature, name: ('was', 'great'), importance: 0.004358
+9. feature, name: ('very', 'clean'), importance: 0.004231
+10. feature, name: ('do', "n't"), importance: 0.003576
+11. feature, name: ('this', 'hotel'), importance: 0.003575
+12. feature, name: ('but', 'the'), importance: 0.003549
+13. feature, name: ('the', 'worst'), importance: 0.003412
+14. feature, name: ('in', 'the'), importance: 0.003345
+15. feature, name: ('on', 'the'), importance: 0.003327
+16. feature, name: ('i', 'was'), importance: 0.003309
+17. feature, name: ('would', 'not'), importance: 0.003125
+18. feature, name: ('the', 'staff'), importance: 0.003090
+19. feature, name: ('the', 'hotel'), importance: 0.003089
+20. feature, name: ('very', 'nice'), importance: 0.003063
+21. feature, name: ('front', 'desk'), importance: 0.003062
+22. feature, name: ('walking', 'distance'), importance: 0.003036
+23. feature, name: ('do', 'not'), importance: 0.002994
+24. feature, name: ('the', 'room'), importance: 0.002991
+25. feature, name: ('a', 'little'), importance: 0.002972
+26. feature, name: ('to', 'be'), importance: 0.002941
+27. feature, name: ('did', "n't"), importance: 0.002877
+28. feature, name: ('the', 'bathroom'), importance: 0.002855
+29. feature, name: ('never', 'stay'), importance: 0.002850
+30. feature, name: ('room', 'was'), importance: 0.002736
+31. feature, name: ('close', 'to'), importance: 0.002717
+32. feature, name: ('the', 'location'), importance: 0.002712
+33. feature, name: ('for', 'the'), importance: 0.002662
+34. feature, name: ('all', 'night'), importance: 0.002631
+35. feature, name: ('and', 'the'), importance: 0.002614
+36. feature, name: ('dirty', '.'), importance: 0.002606
+37. feature, name: ('of', 'the'), importance: 0.002582
+38. feature, name: ('will', 'not'), importance: 0.002476
+39. feature, name: ('when', 'i'), importance: 0.002469
+40. feature, name: (',', 'great'), importance: 0.002432
+41. feature, name: ('at', 'the'), importance: 0.002404
+42. feature, name: ('was', 'perfect'), importance: 0.002384
+43. feature, name: ("n't", 'work'), importance: 0.002347
+44. feature, name: ('to', 'the'), importance: 0.002299
+45. feature, name: ('was', 'very'), importance: 0.002286
+46. feature, name: ('staff', 'was'), importance: 0.002286
+47. feature, name: ('hotel', 'was'), importance: 0.002282
+48. feature, name: ('the', 'floor'), importance: 0.002282
+49. feature, name: ('again', '.'), importance: 0.002178
+50. feature, name: ('i', 'have'), importance: 0.002175
+51. feature, name: ('however', ','), importance: 0.002175
+52. feature, name: ('old', 'and'), importance: 0.002141
+53. feature, name: ('[', '...'), importance: 0.002115
+54. feature, name: ('not', 'worth'), importance: 0.002111
+55. feature, name: ('room', '.'), importance: 0.002063
+56. feature, name: (',', 'and'), importance: 0.002047
+57. feature, name: ('not', 'recommend'), importance: 0.002027
+58. feature, name: ('was', 'a'), importance: 0.002007
+59. feature, name: ('not', 'clean'), importance: 0.001997
+60. feature, name: ('the', 'price'), importance: 0.001994
+61. feature, name: ('i', 'will'), importance: 0.001974
+62. feature, name: ('not', 'stay'), importance: 0.001965
+63. feature, name: ('the', 'front'), importance: 0.001957
+64. feature, name: ('was', 'ok'), importance: 0.001948
+65. feature, name: ('very', 'comfortable'), importance: 0.001929
+66. feature, name: ('very', 'friendly'), importance: 0.001921
+67. feature, name: ('hotel', 'is'), importance: 0.001909
+68. feature, name: ('great', 'location'), importance: 0.001898
+69. feature, name: ('it', 'was'), importance: 0.001875
+70. feature, name: ('the', 'best'), importance: 0.001841
+71. feature, name: ('rude', 'and'), importance: 0.001839
+72. feature, name: ('comfortable', '.'), importance: 0.001801
+73. feature, name: ('i', 'would'), importance: 0.001798
+74. feature, name: ('for', 'a'), importance: 0.001796
+75. feature, name: ('nothing', 'special'), importance: 0.001784
+76. feature, name: (',', 'the'), importance: 0.001746
+77. feature, name: (',', 'i'), importance: 0.001730
+78. feature, name: ('and', 'they'), importance: 0.001730
+79. feature, name: ('again', '!'), importance: 0.001697
+80. feature, name: (',', 'no'), importance: 0.001695
+81. feature, name: ('was', 'nice'), importance: 0.001669
+82. feature, name: ('if', 'you'), importance: 0.001652
+83. feature, name: ('friendly', 'and'), importance: 0.001648
+84. feature, name: ('very', 'bad'), importance: 0.001627
+85. feature, name: ('hotel', '.'), importance: 0.001625
+86. feature, name: ('clean', ','), importance: 0.001622
+87. feature, name: ('was', 'clean'), importance: 0.001610
+88. feature, name: ('...', ']'), importance: 0.001583
+89. feature, name: ('a', 'good'), importance: 0.001567
+90. feature, name: ('called', 'the'), importance: 0.001566
+91. feature, name: ('there', 'was'), importance: 0.001560
+92. feature, name: ('a', 'perfect'), importance: 0.001522
+93. feature, name: ('excellent', ','), importance: 0.001520
+94. feature, name: ('very', 'dirty'), importance: 0.001484
+95. feature, name: ('breakfast', 'is'), importance: 0.001453
+96. feature, name: ('bad', 'experience'), importance: 0.001439
+97. feature, name: ('a', 'bit'), importance: 0.001436
+98. feature, name: ('to', 'get'), importance: 0.001427
+99. feature, name: ('to', 'san'), importance: 0.001423
+100. feature, name: ('had', 'a'), importance: 0.001413
+
+Done finding parameter settings, now starting to predict
+Best parameters:  {'C': 4, 'gamma': 0.01}
+
+SVM Accuracy 0.672
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.77      0.70      0.74       149
+          1       0.55      0.66      0.60       168
+          2       0.74      0.66      0.69       183
+
+avg / total       0.69      0.67      0.68       500
+
+---------------------------------------------
+Trigram Naive Bayes 
+---------------------------------------------
+Starting 5 fold cross validation for finding best number of features
+Using 500 most frequent trigrams out of 127175
+Average accuracy of 500 features: 0.567600
+Using 1000 most frequent trigrams out of 127175
+Average accuracy of 1000 features: 0.590800
+Using 2000 most frequent trigrams out of 127175
+Average accuracy of 2000 features: 0.623200
+Using 4000 most frequent trigrams out of 127175
+Average accuracy of 4000 features: 0.640800
+Using 8000 most frequent trigrams out of 127175
+Average accuracy of 8000 features: 0.635200
+
+Best number of features = 4000: test error = 0.640800
+
+Using 4000 most frequent trigrams out of 127175
+NTLK Naive Bayes trigram accuracy using best number of features: 0.63
+Most Informative Features
+  ('i', 'will', 'never') = True                0 : 1      =     33.6 : 1.0
+('will', 'never', 'stay') = True                0 : 1      =     27.1 : 1.0
+   ('i', 'would', 'not') = True                0 : 2      =     24.6 : 1.0
+('very', 'clean', 'and') = True                2 : 0      =     22.6 : 1.0
+('would', 'not', 'recommend') = True                0 : 2      =     18.9 : 1.0
+('in', 'the', 'bathroom') = True                0 : 2      =     16.3 : 1.0
+   ('was', 'a', 'great') = True                2 : 0      =     16.3 : 1.0
+('front', 'desk', 'and') = True                0 : 2      =     15.7 : 1.0
+   ('had', 'a', 'great') = True                2 : 0      =     14.9 : 1.0
+('called', 'the', 'front') = True                0 : 1      =     14.7 : 1.0
+   ('there', 'is', 'no') = True                0 : 2      =     14.4 : 1.0
+('very', 'friendly', 'and') = True                2 : 0      =     14.4 : 1.0
+ ('never', 'stay', 'at') = True                0 : 1      =     14.0 : 1.0
+      ('to', 'get', 'a') = True                0 : 2      =     13.8 : 1.0
+  ('on', 'the', 'floor') = True                0 : 2      =     13.8 : 1.0
+('the', 'parking', 'lot') = True                0 : 2      =     13.8 : 1.0
+('hotel', 'to', 'anyone') = True                0 : 1      =     12.7 : 1.0
+('when', 'we', 'arrived') = True                0 : 1      =     12.1 : 1.0
+    ('that', 'i', 'had') = True                0 : 2      =     11.8 : 1.0
+('was', 'very', 'comfortable') = True                2 : 0      =     11.5 : 1.0
+ ('front', 'desk', 'to') = True                0 : 2      =     11.2 : 1.0
+('friendly', 'and', 'helpful') = True                2 : 0      =     11.0 : 1.0
+ ('staff', 'is', 'very') = True                2 : 0      =     10.8 : 1.0
+  ('very', 'clean', ',') = True                2 : 0      =     10.8 : 1.0
+('the', 'first', 'night') = True                0 : 2      =     10.6 : 1.0
+     ('my', 'room', '.') = True                0 : 1      =     10.1 : 1.0
+('walking', 'distance', '.') = True                2 : 0      =     10.1 : 1.0
+   ('the', 'room', 'we') = True                0 : 2      =      9.9 : 1.0
+ ('but', 'the', 'staff') = True                1 : 0      =      9.9 : 1.0
+   ('was', 'great', '.') = True                2 : 0      =      9.7 : 1.0
+   ('to', 'anyone', '.') = True                0 : 1      =      9.5 : 1.0
+ ('not', 'stay', 'here') = True                0 : 1      =      9.5 : 1.0
+  ('did', 'not', 'work') = True                0 : 2      =      9.4 : 1.0
+  ('to', 'the', 'front') = True                0 : 2      =      9.4 : 1.0
+('definitely', 'stay', 'here') = True                2 : 0      =      9.4 : 1.0
+   ('was', 'great', '!') = True                2 : 0      =      9.4 : 1.0
+('rooms', 'were', 'clean') = True                1 : 0      =      9.2 : 1.0
+('with', 'this', 'hotel') = True                0 : 1      =      8.8 : 1.0
+ ('was', 'told', 'that') = True                0 : 1      =      8.8 : 1.0
+ ('room', 'that', 'was') = True                0 : 1      =      8.8 : 1.0
+  ('did', "n't", 'work') = True                0 : 1      =      8.8 : 1.0
+('and', 'the', 'location') = True                2 : 0      =      8.7 : 1.0
+  ('a', 'great', 'view') = True                2 : 0      =      8.7 : 1.0
+('close', 'to', 'everything') = True                2 : 0      =      8.7 : 1.0
+('were', 'very', 'friendly') = True                2 : 0      =      8.7 : 1.0
+('the', 'carpet', 'was') = True                0 : 2      =      8.6 : 1.0
+     ('had', 'to', 'be') = True                0 : 2      =      8.6 : 1.0
+  ('front', 'desk', ',') = True                0 : 2      =      8.6 : 1.0
+('and', 'comfortable', '.') = True                1 : 0      =      8.5 : 1.0
+   ('was', 'great', ',') = True                1 : 0      =      8.5 : 1.0
+  ('room', 'was', 'not') = True                0 : 1      =      8.5 : 1.0
+  ('this', 'was', 'the') = True                2 : 1      =      8.5 : 1.0
+('within', 'walking', 'distance') = True                2 : 0      =      8.5 : 1.0
+  ('they', 'did', 'not') = True                0 : 2      =      8.3 : 1.0
+('walking', 'distance', 'to') = True                2 : 0      =      8.2 : 1.0
+  ('and', 'was', 'told') = True                0 : 1      =      8.1 : 1.0
+  ('did', "n't", 'even') = True                0 : 1      =      8.1 : 1.0
+    ('not', 'a', 'good') = True                0 : 1      =      8.1 : 1.0
+  ('this', 'place', '.') = True                0 : 1      =      8.1 : 1.0
+      ('i', 'wo', "n't") = True                0 : 1      =      8.1 : 1.0
+   ('and', 'when', 'we') = True                0 : 2      =      8.0 : 1.0
+  ('room', 'we', 'were') = True                0 : 2      =      8.0 : 1.0
+    ('and', 'had', 'to') = True                0 : 2      =      8.0 : 1.0
+('great', 'place', 'to') = True                2 : 0      =      8.0 : 1.0
+   ('of', 'the', 'best') = True                2 : 0      =      8.0 : 1.0
+ ('a', 'great', 'place') = True                2 : 0      =      8.0 : 1.0
+ ('to', 'this', 'hotel') = True                0 : 2      =      7.9 : 1.0
+('would', 'stay', 'there') = True                1 : 0      =      7.8 : 1.0
+  ('were', 'able', 'to') = True                2 : 0      =      7.7 : 1.0
+    ('i', 'was', 'told') = True                0 : 1      =      7.6 : 1.0
+  ('i', 'would', 'stay') = True                1 : 0      =      7.6 : 1.0
+ ('i', 'would', 'never') = True                0 : 1      =      7.5 : 1.0
+  ('all', 'over', 'the') = True                0 : 1      =      7.5 : 1.0
+('all', 'night', 'long') = True                0 : 1      =      7.5 : 1.0
+ ('they', 'could', 'do') = True                0 : 1      =      7.5 : 1.0
+       ('us', 'in', 'a') = True                0 : 2      =      7.4 : 1.0
+   ('one', 'night', '.') = True                0 : 2      =      7.4 : 1.0
+('clean', 'and', 'comfortable') = True                2 : 0      =      7.3 : 1.0
+('was', 'very', 'helpful') = True                2 : 0      =      7.3 : 1.0
+('right', 'across', 'the') = True                2 : 0      =      7.3 : 1.0
+    ('if', 'you', "'re") = True                1 : 0      =      7.2 : 1.0
+    ('was', 'a', 'good') = True                1 : 0      =      7.2 : 1.0
+   ('our', 'stay', 'at') = True                2 : 1      =      7.1 : 1.0
+ ('great', 'view', 'of') = True                2 : 1      =      7.1 : 1.0
+  ('a', 'great', 'time') = True                2 : 1      =      7.1 : 1.0
+  ('will', 'be', 'back') = True                2 : 1      =      7.1 : 1.0
+     ('i', 'went', 'to') = True                0 : 2      =      7.1 : 1.0
+('that', 'the', 'hotel') = True                0 : 2      =      7.1 : 1.0
+     ('i', 'did', 'not') = True                0 : 2      =      7.0 : 1.0
+('very', 'helpful', '.') = True                2 : 0      =      6.9 : 1.0
+('would', 'definitely', 'stay') = True                2 : 0      =      6.9 : 1.0
+  ('to', 'san', 'diego') = True                2 : 0      =      6.9 : 1.0
+     ('we', 'had', 'to') = True                0 : 2      =      6.9 : 1.0
+('staying', 'at', 'the') = True                0 : 1      =      6.8 : 1.0
+('another', 'room', '.') = True                0 : 1      =      6.8 : 1.0
+   ('to', 'call', 'the') = True                0 : 1      =      6.8 : 1.0
+('to', 'another', 'room') = True                0 : 2      =      6.7 : 1.0
+ ('and', 'helpful', '.') = True                2 : 0      =      6.7 : 1.0
+('not', 'recommend', 'this') = True                0 : 1      =      6.6 : 1.0
+   ('and', 'quiet', '.') = True                2 : 0      =      6.6 : 1.0
+
+
+---------------------------------------------
+Trigram SVM 
+---------------------------------------------
+Using 127175 most frequent trigrams out of 127175
+Done making trigrams from train set
+Making trigrams and binarizing train set...
+Done
+Making trigrams and binarizing test set...
+Done
+Starting feature selection using CART random forests
+---------------------------------------------
+
+Feature ranking for trigram task:
+1. feature, name: ('i', 'will', 'never'), importance: 0.004700
+2. feature, name: ('did', "n't", 'work'), importance: 0.003981
+3. feature, name: ('[', '...', ']'), importance: 0.003917
+4. feature, name: ('will', 'never', 'stay'), importance: 0.003217
+5. feature, name: ('room', 'was', 'not'), importance: 0.002913
+6. feature, name: ('very', 'clean', 'and'), importance: 0.002856
+7. feature, name: ('not', 'worth', 'the'), importance: 0.002798
+8. feature, name: ('was', 'great', '.'), importance: 0.002293
+9. feature, name: ('was', 'a', 'great'), importance: 0.002289
+10. feature, name: ('in', 'the', 'room'), importance: 0.002278
+11. feature, name: ('i', 'had', 'to'), importance: 0.002270
+12. feature, name: ('the', 'front', 'desk'), importance: 0.002207
+13. feature, name: ('i', 'would', 'not'), importance: 0.002174
+14. feature, name: ('on', 'the', 'floor'), importance: 0.002137
+15. feature, name: ('within', 'walking', 'distance'), importance: 0.002118
+16. feature, name: ('for', 'the', 'price'), importance: 0.002050
+17. feature, name: ('at', 'all', '.'), importance: 0.002044
+18. feature, name: ('room', 'was', 'clean'), importance: 0.001869
+19. feature, name: ('the', 'hotel', 'was'), importance: 0.001846
+20. feature, name: ("n't", 'stay', 'here'), importance: 0.001818
+21. feature, name: ('the', 'rooms', 'are'), importance: 0.001815
+22. feature, name: ('would', 'not', 'recommend'), importance: 0.001798
+23. feature, name: ('the', 'staff', 'was'), importance: 0.001795
+24. feature, name: ('here', 'again', '!'), importance: 0.001777
+25. feature, name: (',', 'but', 'the'), importance: 0.001755
+26. feature, name: ('not', 'recommend', 'this'), importance: 0.001747
+27. feature, name: ('never', 'stay', 'here'), importance: 0.001734
+28. feature, name: ('in', 'the', 'bathroom'), importance: 0.001699
+29. feature, name: ('walking', 'distance', 'to'), importance: 0.001678
+30. feature, name: ('was', 'a', 'good'), importance: 0.001618
+31. feature, name: ('of', 'the', 'best'), importance: 0.001612
+32. feature, name: ('the', 'hotel', 'is'), importance: 0.001585
+33. feature, name: ('very', 'friendly', 'and'), importance: 0.001583
+34. feature, name: ('to', 'this', 'hotel'), importance: 0.001541
+35. feature, name: ('this', 'hotel', '.'), importance: 0.001532
+36. feature, name: ('was', 'a', 'little'), importance: 0.001529
+37. feature, name: ('not', 'stay', 'here'), importance: 0.001475
+38. feature, name: ('will', 'stay', 'there'), importance: 0.001467
+39. feature, name: ('the', 'room', 'was'), importance: 0.001420
+40. feature, name: ('very', 'nice', 'and'), importance: 0.001414
+41. feature, name: ('to', 'san', 'diego'), importance: 0.001409
+42. feature, name: ('the', 'location', 'is'), importance: 0.001372
+43. feature, name: ('in', 'the', 'hotel'), importance: 0.001362
+44. feature, name: ('everything', 'was', 'perfect'), importance: 0.001353
+45. feature, name: ('was', 'not', 'clean'), importance: 0.001311
+46. feature, name: ('we', 'had', 'to'), importance: 0.001308
+47. feature, name: ('was', 'wonderful', '.'), importance: 0.001308
+48. feature, name: ('a', 'great', 'time'), importance: 0.001293
+49. feature, name: ('will', 'not', 'stay'), importance: 0.001267
+50. feature, name: ('will', 'be', 'back'), importance: 0.001247
+51. feature, name: ('was', 'a', 'perfect'), importance: 0.001225
+52. feature, name: ('staff', 'was', 'very'), importance: 0.001223
+53. feature, name: ('room', 'was', 'small'), importance: 0.001216
+54. feature, name: ('and', 'when', 'we'), importance: 0.001187
+55. feature, name: ('not', 'want', 'to'), importance: 0.001178
+56. feature, name: ('i', 'did', 'not'), importance: 0.001176
+57. feature, name: ('i', 'will', 'not'), importance: 0.001160
+58. feature, name: ('i', 'would', "n't"), importance: 0.001160
+59. feature, name: ('stay', 'away', '!'), importance: 0.001157
+60. feature, name: ('was', 'dirty', '.'), importance: 0.001148
+61. feature, name: ('to', 'a', 'suite'), importance: 0.001146
+62. feature, name: ('never', 'stay', 'at'), importance: 0.001139
+63. feature, name: ('not', 'stay', 'there'), importance: 0.001109
+64. feature, name: ('walking', 'distance', '.'), importance: 0.001098
+65. feature, name: ('in', 'san', 'francisco'), importance: 0.001080
+66. feature, name: ('was', 'perfect', '.'), importance: 0.001073
+67. feature, name: ('very', 'comfortable', 'bed'), importance: 0.001071
+68. feature, name: ('there', 'was', 'no'), importance: 0.001057
+69. feature, name: (',', 'i', 'was'), importance: 0.001056
+70. feature, name: ('the', 'floor', '.'), importance: 0.001049
+71. feature, name: ('very', 'nice', 'hotel'), importance: 0.001045
+72. feature, name: ('was', 'very', 'clean'), importance: 0.001041
+73. feature, name: ('!', '!', '!'), importance: 0.001036
+74. feature, name: ('wonderful', ':', ')'), importance: 0.001029
+75. feature, name: ('great', 'location', ','), importance: 0.001025
+76. feature, name: ('this', 'hotel', 'was'), importance: 0.001024
+77. feature, name: ('very', 'nice', 'stay'), importance: 0.001021
+78. feature, name: ('it', 'was', 'clean'), importance: 0.001019
+79. feature, name: ('i', 'do', 'not'), importance: 0.001018
+80. feature, name: ('very', 'helpful', '.'), importance: 0.001012
+81. feature, name: ('we', 'loved', 'the'), importance: 0.001011
+82. feature, name: ('if', 'you', "'re"), importance: 0.001008
+83. feature, name: ('the', 'hotel', '.'), importance: 0.001005
+84. feature, name: ('the', 'floor', 'was'), importance: 0.001003
+85. feature, name: ('i', 'wo', "n't"), importance: 0.001002
+86. feature, name: ('enjoyed', 'our', 'stay'), importance: 0.001000
+87. feature, name: ('there', 'is', 'no'), importance: 0.000998
+88. feature, name: ('my', 'room', '.'), importance: 0.000997
+89. feature, name: ('very', 'close', 'to'), importance: 0.000992
+90. feature, name: ('the', 'price', '.'), importance: 0.000983
+91. feature, name: ('that', 'i', 'had'), importance: 0.000981
+92. feature, name: ('it', 'was', 'not'), importance: 0.000971
+93. feature, name: ('more', 'like', 'a'), importance: 0.000969
+94. feature, name: ('were', 'able', 'to'), importance: 0.000965
+95. feature, name: ('tr\xc3\xa8s', 'bien', 'situ\xc3\xa9'), importance: 0.000958
+96. feature, name: ('but', 'the', 'staff'), importance: 0.000948
+97. feature, name: ('good', 'value', 'for'), importance: 0.000947
+98. feature, name: ('do', 'not', 'recommend'), importance: 0.000943
+99. feature, name: ('staff', 'is', 'very'), importance: 0.000940
+100. feature, name: (',', 'and', 'they'), importance: 0.000916
+plot saved
+Done
+Starting 5-fold cross validation
+

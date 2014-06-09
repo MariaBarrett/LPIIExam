@@ -21,9 +21,10 @@ X_test = dataset[2500:]
 y_test = targets[2500:]
 
 """
-getngram expects a dataset without labels and a string specifing the n of n-gram. 
+ngram expects a dataset without labels and a string specifing the n of n-gram. 
 That string must contain either 'bi' or 'tri'. 
-It calls nltk to either make bigrams or trigrams of an entire dataset"""
+It calls nltk to either make bigrams or trigrams of an entire dataset, sentence per sentence
+It returns the n most frequent features sorted in decreasing frequency"""
 def ngram(data, ngr, n):
 	all_ngrams = []
 	for review in data:
@@ -43,8 +44,8 @@ def ngram(data, ngr, n):
 	return fdist_all.keys()[:n] #taking n most frequent from sorted by decreasing frequency
 
 """
-getngram_singlereview expects a review and type of ngram.
-It returns a list of all ngrams of the specified type in the review. 
+getngram_singlereview expects a review and type of ngram as a string.
+It returns an unsorted list of all ngrams of the specified type in the review. 
 """
 def getngram_singlereview(review, ngr):
 	ngrams = []
@@ -60,23 +61,28 @@ def getngram_singlereview(review, ngr):
 	return ngrams
 
 
-def tree_selection(train_data,train_labels,number_of_features):
-	""" Returns the indices for the best parameters of a given dataset
-	and it's target labels. The number_of_features parameter should be
-	choosen by visual inspection using the inspect_tree_selection function. """ 
+""" 
+tree_selection returns the indices for the n best features of a given dataset
+and its target labels. The n parameter should be
+choosen by visual inspection using the inspect_tree_selection function. 
+""" 
 
+def tree_selection(train_data,train_labels, n):
 	forest = ExtraTreesClassifier(n_estimators=250, random_state=0)
 	forest.fit(train_data, train_labels)
 	importances = forest.feature_importances_
 	indices = np.argsort(importances)[::-1]
 
-	return indices[:number_of_features]
+	return indices[:n]
 
+""" 
+inspect_tree_selection expects a dataset and its target labels as well as all bigrams from the train set. 
+I sorts the features in decending order of importance.
+It prints and visualizes them in a plot.
+"""
 
 def inspect_tree_selection(train_data,train_labels, all_bigrams, task):
-	""" Given a dataset and its target labels, this
-	function sorts the best features and prints and visualize them """
-
+	
 	forest = ExtraTreesClassifier(n_estimators=250, random_state=0)
 	forest.fit(train_data, train_labels)
 	importances = forest.feature_importances_
@@ -96,7 +102,7 @@ def inspect_tree_selection(train_data,train_labels, all_bigrams, task):
 	pl.title("%s: Sorted tree selection feature importance" %(task))
 	pl.bar(range(n), importances[indices][:n], color="black", align="center")
 	pl.xlim([-1, (n)])
-	pl.savefig('test.pdf', bbox_inches='tight')
+	pl.savefig('bigram.pdf', bbox_inches='tight')
 	print "plot saved"
 	
 
@@ -120,10 +126,16 @@ def binarize(dataset, all_ngrams, ngr):
 		binary_dataset.append(temp)
 	return(np.asarray(binary_dataset))
 
+"""
+supvecmac expects a train set with labels and a test set with labels.
+It runs 5-fold gridsearch on the train set to find best C and gamma.
+Then it uses the best parameters on the test set and prints the result 
+"""
 def supvecmac(X_train, y_train, X_test, y_test):
 	print "Starting 5-fold cross validation"
-
-	parameters = {'C': [ 4, 8, 16, 32, 64], 'gamma':[0.001, 0.01, 0.1, 1,]}
+	#parameters = {'C': [ 4, 8, 16, 32, 64, 128]}
+	parameters = {'C': [ 4, 8, 16, 32, 64, 128], 'gamma':[0.0001, 0.001, 0.01, 0.1, 1]}
+	#svr = svm.LinearSVC()
 	svr = svm.SVC()
 	clf = grid_search.GridSearchCV(svr, parameters)
 	clf.fit(X_train, y_train)
@@ -137,6 +149,12 @@ def supvecmac(X_train, y_train, X_test, y_test):
 	y_true, y_pred = y_test, clf.predict(X_test)
 	print classification_report(y_true, y_pred)
 
+
+"""
+This function is inspired by Example Code 6.4 from the NLTK-book: http://www.nltk.org/book/pylisting/code_document_classify_fd.py
+It expects a single document along all ngrams from the train set as well as a string containing either 'bi' or 'tri'.
+It returns the features for the review. 
+"""
 def document_features(review, all_ngrams, ngr): 
     review_ngrams = set(getngram_singlereview(review, ngr)) 
     features = {}
@@ -153,7 +171,7 @@ def document_features(review, all_ngrams, ngr):
 """
 This function splits the train set in s equal sized splits. 
 It expects the features and number of slices. 
-It starts by making a copy 
+It starts by making a copy of the features
 It returns a list of s slices containg lists of datapoints belonging to s.
 """
 def sfold(features, s):
@@ -162,17 +180,16 @@ def sfold(features, s):
 	return feature_slices
 
 
-
 """
 The function expects a train set, a 1D list of train labels and number of folds. 
-The function has dicts of all C's and gammas and number of features. For each combination it runs 5 fold crossvalidation: 
-For every test-set for as many folds as there are: use the remaining as train sets (exept if it's the test set.) 
-Then we sum up the test and train result for every run and average it. The average performances per combination is stored.
-The lowest test average and the combination that produced it is returned with the train error rate.   
+The function has a dict of all number of features to be tried. For each num it runs 5 fold crossvalidation: 
+For every test-set for as many folds as there are: use the remaining slices as train sets.  
+Then it sums up the test accuracies for every run and averages over them. The average performances per combination is stored.
+The highest test average and the num that produced it is returned.   
 """
 def crossval(X_train, y_train, folds, ngr):
 	# Set the parameters by cross-validatiom
-	tuned_parameters = {'Num_features': [100, 500, 1000, 2000, 4000, 8000, 16000]}
+	tuned_parameters = {'Num_features': [500, 1000, 2000, 4000, 8000]}
 	accuracy = []
 
 	#gridsearch
@@ -215,7 +232,7 @@ def crossval(X_train, y_train, folds, ngr):
 		accuracy.append([num, testmean])
 
 	#After all combinations have been tried get the best performance and the hyperparam pairs for that:
-	accuracy.sort(key=operator.itemgetter(1)) #sort by error - lowest first
+	accuracy.sort(key=operator.itemgetter(1), reverse = True) #sort by error - lowest first
 	bestperf = accuracy[0][-1]
 	bestnum = accuracy[0][0]
 	print "\nBest number of features = %s: test error = %.6f" %(bestnum, bestperf)
@@ -236,34 +253,36 @@ print "*"*45
 print "-"*45
 print "Bigram Naive Bayes"
 print "-"*45
-
+"""
 # NLTK
+#NLTK wants the label in the last position
 
-joint_for_nltk = zip(X_train + X_test, y_train + y_test)
+joint_for_nltk = zip(X_train + X_test, y_train + y_test) #assembeling for making feature vectors. That's how NLTK roll
 
 best_num_feats = crossval(X_train, y_train, 5, 'bigram')
 
-#Extracting only best number of features (starting from most frequent in decending order)
-#NLTK wants the label in the last position
 all_bigr_nltk = ngram(X_train, 'bigram', best_num_feats)
 bi_featuresets = [(document_features(d, all_bigr_nltk, 'bigram'), c) for (d,c) in joint_for_nltk]
-bi_train_for_nltk = bi_featuresets[:2500]
+#making same train test-split as for SVM
+bi_train_for_nltk = bi_featuresets[:2500] #Re-establishing the same train - test split
 bi_test_for_nltk = bi_featuresets[2500:]
 
+#Taking only best number of features
 bi_train_for_nltk_optimized = [bi_train_for_nltk[i][:best_num_feats] for i in range(len(bi_train_for_nltk))]
 bi_test_for_nltk_optimized = [bi_test_for_nltk[i][:best_num_feats] for i in range(len(bi_test_for_nltk))]
 
 clf_bi = nltk.NaiveBayesClassifier.train(bi_train_for_nltk_optimized)
 print "NTLK Naive Bayes bigram accuracy using best number of features:", nltk.classify.accuracy(clf_bi, bi_test_for_nltk_optimized)
-clf_bi.show_most_informative_features(20)
+clf_bi.show_most_informative_features(100)
 print ""
+
 
 #Sklearn
 print "-"*45
-print "Bigram SVM"
+print "Bigram SVM" #run again
 print "-"*45
 
-all_bigr = ngram(X_train, 'bigram', 5000)
+all_bigr = ngram(X_train, 'bigram', 67052) #starting with all features
 
 print "Done making bigrams from train set"
 print "Making bigrams and binarizing train set..."
@@ -272,47 +291,49 @@ print "Done"
 print "Making bigrams and binarizing test set..."
 X_test_bigram = binarize(X_test, all_bigr, 'bigram')
 
+pickle.dump(X_train_bigram, open( "X_train_bigram.p", "wb" ) )
+pickle.dump(X_test_bigram, open( "X_test_bigram.p", "wb" ) )
+
 print "Starting feature selection using CART random forests"
 inspect_tree_selection(X_train_bigram, y_train, all_bigr, 'bigram')
-indices_important_feats = tree_selection(X_train_bigram, y_train, 750)
-X_train_bigram_feat_sel = X_train_bigram[:,indices_important_feats]
-X_test_bigram_feat_sel = X_test_bigram[:,indices_important_feats]
+print "Getting indices for most important features..."
+indices_important_feats_bi = tree_selection(X_train_bigram, y_train, 1000) #from visual inspection of plot you can set number of most important features
+
+pickle.dump(indices_important_feats_bi, open( "1000_bigram_indices.p", "wb" ) )
+print "Done and pickle file created"
+
+X_train_bigram_feat_sel = X_train_bigram[:,indices_important_feats_bi]
+X_test_bigram_feat_sel = X_test_bigram[:,indices_important_feats_bi]
 print "Done"
 
-"""
-clf = naive_bayes.GaussianNB()
-clf.fit(X_train_bigram, y_train)
-
-score = clf.score(X_test_bigram, y_test)
-print "GaussianNB accuracy:", score
-""" 
 supvecmac(X_train_bigram_feat_sel, y_train, X_test_bigram_feat_sel, y_test)
-
 
 #Trigram
 print "-"*45
 print "Trigram Naive Bayes "
 print "-"*45
-best_num_feats = crossval(tri_train_for_nltk, y_train, 5, 'trigram')
+#best_num_feats = crossval(X_train, y_train, 5, 'trigram')
 
+best_num_feats= 4000
 all_tri_nltk = ngram(X_train, 'trigram', best_num_feats)
-tri_featuresets = [(document_features(d, all_tri_nltk, 'bigram'), c) for (d,c) in joint_for_nltk]
-tri_train_for_nltk = bi_featuresets[:2500]
-tri_test_for_nltk = bi_featuresets[2500:]
+tri_featuresets = [(document_features(d, all_tri_nltk, 'trigram'), c) for (d,c) in joint_for_nltk]
+tri_train_for_nltk = tri_featuresets[:2500]
+tri_test_for_nltk = tri_featuresets[2500:]
 
 tri_train_for_nltk_optimized = [tri_train_for_nltk[i][:best_num_feats] for i in range(len(tri_train_for_nltk))]
 tri_test_for_nltk_optimized = [tri_test_for_nltk[i][:best_num_feats] for i in range(len(tri_test_for_nltk))]
 
 clf_tri = nltk.NaiveBayesClassifier.train(tri_train_for_nltk_optimized)
 print "NTLK Naive Bayes trigram accuracy using best number of features:", nltk.classify.accuracy(clf_tri, tri_test_for_nltk_optimized)
-clf_tri.show_most_informative_features(20)
+clf_tri.show_most_informative_features(100)
 print ""
+
 
 #Sklearn
 print "-"*45
 print "Trigram SVM "
 print "-"*45
-all_trigr = ngram(X_train, 'trigram', 5000)
+all_trigr = ngram(X_train, 'trigram', 127175) #all trigrams
 print "Done making trigrams from train set"
 print "Making trigrams and binarizing train set..."
 
@@ -322,15 +343,24 @@ print "Making trigrams and binarizing test set..."
 X_test_trigram = binarize(X_test, all_trigr, 'trigram')
 print "Done"
 
+pickle.dump(X_train_trigram, open( "X_train_trigram.p", "wb" ) )
+pickle.dump(X_test_trigram, open( "X_test_trigram.p", "wb" ) )
+
 print "Starting feature selection using CART random forests"
-inspect_tree_selection(X_train_trigram, y_train, all_bigr, 'trigram')
-indices_important_feats = tree_selection(X_train_trigram, y_train, 750)
-X_train_trigram_feat_sel = X_train_trigram[:,indices_important_feats]
-X_test_trigram_feat_sel = X_test_trigram[:,indices_important_feats]
+inspect_tree_selection(X_train_trigram, y_train, all_trigr, 'trigram')
+print "Getting indices for most important features..."
+indices_important_feats_tri = tree_selection(X_train_trigram, y_train, 1000)
+
+pickle.dump(indices_important_feats_tri, open( "1000_trigram_indices.p", "wb" ) )
+print "Done and pickle file created"
+"""
+
+indices_important_feats_tri = pickle.load( open( "1000_trigram_indices.p", "rb" ) )
+
+X_train_trigram_feat_sel = X_train_trigram[:,indices_important_feats_tri]
+X_test_trigram_feat_sel = X_test_trigram[:,indices_important_feats_tri]
+print X_test_trigram_feat_sel.shape
 print "Done"
 
-supvecmac(X_train_trigram, y_train, X_test_trigram, y_test)
-
-
-
+supvecmac(X_train_trigram_feat_sel, y_train, X_test_trigram_feat_sel, y_test)
 
