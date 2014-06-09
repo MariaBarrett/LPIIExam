@@ -491,4 +491,18 @@ Feature ranking for trigram task:
 plot saved
 Done
 Starting 5-fold cross validation
+Done finding parameter settings, now starting to predict
+Best parameters:  {'C': 32, 'gamma': 0.01}
+
+SVM Accuracy 0.58
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.75      0.62      0.68       149
+          1       0.45      0.65      0.53       168
+          2       0.66      0.49      0.56       183
+
+avg / total       0.62      0.58      0.59       500
 

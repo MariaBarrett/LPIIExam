@@ -244,7 +244,7 @@ def crossval(X_train, y_train, folds, ngr):
 #					Calling
 #
 #######################################################################################
-
+"""
 #Bigram
 print "*"*45
 print "n-gram"
@@ -253,7 +253,7 @@ print "*"*45
 print "-"*45
 print "Bigram Naive Bayes"
 print "-"*45
-"""
+
 # NLTK
 #NLTK wants the label in the last position
 
@@ -276,10 +276,10 @@ print "NTLK Naive Bayes bigram accuracy using best number of features:", nltk.cl
 clf_bi.show_most_informative_features(100)
 print ""
 
-
+"""
 #Sklearn
 print "-"*45
-print "Bigram SVM" #run again
+print "Bigram SVM" 
 print "-"*45
 
 all_bigr = ngram(X_train, 'bigram', 67052) #starting with all features
@@ -305,7 +305,7 @@ print "Done and pickle file created"
 X_train_bigram_feat_sel = X_train_bigram[:,indices_important_feats_bi]
 X_test_bigram_feat_sel = X_test_bigram[:,indices_important_feats_bi]
 print "Done"
-
+"""
 supvecmac(X_train_bigram_feat_sel, y_train, X_test_bigram_feat_sel, y_test)
 
 #Trigram
@@ -354,13 +354,15 @@ indices_important_feats_tri = tree_selection(X_train_trigram, y_train, 1000)
 pickle.dump(indices_important_feats_tri, open( "1000_trigram_indices.p", "wb" ) )
 print "Done and pickle file created"
 """
-
+"""
+#Just for shortcutting using pickle files
 indices_important_feats_tri = pickle.load( open( "1000_trigram_indices.p", "rb" ) )
-
+X_train_trigram = pickle.load( open( "X_train_trigram.p", "rb" ) )
+X_test_trigram = pickle.load( open( "X_test_trigram.p", "rb" ) )
+"""
+"""
 X_train_trigram_feat_sel = X_train_trigram[:,indices_important_feats_tri]
 X_test_trigram_feat_sel = X_test_trigram[:,indices_important_feats_tri]
-print X_test_trigram_feat_sel.shape
-print "Done"
 
 supvecmac(X_train_trigram_feat_sel, y_train, X_test_trigram_feat_sel, y_test)
-
+"""
