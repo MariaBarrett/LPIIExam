@@ -4,17 +4,19 @@ import pickle
 import nltk
 from collections import Counter
 from sklearn.svm import SVC
+from sklearn.grid_search import GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 
-SVC = SVC(kernel="linear")
+SVC = SVC(kernel="rbf")
+parameters = {'C': [ 8,10,12,14,16,], 'gamma':[0.01,0.1,1,10]}
+
 GNB = GaussianNB()
 KNN = KNeighborsClassifier(n_neighbors=3)
 
 
-targets = pickle.load( open( "targets.p", "rb" ) )
-dataset = pickle.load( open( "dataset.p", "rb" ) )
-
+targets = pickle.load( open( "targets_easy.p", "rb" ) )
+dataset = pickle.load( open( "dataset_easy.p", "rb" ) )
 
 #Dataset structure: [[[sentence 1 in review1], [sentence 2 in review 1] ...], [[sentence 1 in review 2], [sentence 2 in review 2] ...] ...]
 # Dataset is shuffled and balanced, 1000 each of pos, neu and neg
@@ -33,12 +35,13 @@ word_features = ["good","wonderful", "perfect","best", "love", "satisfied",
 					 "positive", "amazing", "awesome","beautiful",
 					 "excellent","fantastic", "great", "happy",
 					"cheap", "quality", "beautiful", "friendly", "comfortable",
-					"friendly", "clean", "close", "delicious", "big", "spacious", 
+					"friendly", "clean", "close", "big", "spacious", 
 
 					"bad", "disgusting", "terrible", "wrong", "worst",
-					"ridiculous", "unsatisfied", "stupid", "negative", "horrible",
-					"dislike", "sucks", "suck", "small", "uncomfortable", "waiting", "wait",
-					"dark", "long", "difficult", "bad","expensive", "dirty"]
+					"ridiculous", "hate", "noisy", "negative", "horrible",
+					"annoying","small", "uncomfortable", "waiting", "wait",
+					"dark", "long", "difficult", "bad","expensive", "dirty",
+					 "stained", "old", "used","smelly", "rude"]
 
 
 
@@ -101,6 +104,7 @@ def check(X_train,features):
 		return unused_features
 
 
+print "\n","*"*50,"\n", " Method: Polarity and Subjectivity \n"
 
 bpol_Xtrain = [binary_polarityfeatures(d,word_features,mode="sklearn") for d in X_train]
 bpol_Xtest = [binary_polarityfeatures(d,word_features,mode="sklearn") for d in X_test]
@@ -109,11 +113,11 @@ print "Unused features: \t",check(bpol_Xtrain,word_features)
 
 print "Baseline result: \t",baseline(y_train,y_test)
 
+SVC = GridSearchCV(SVC, parameters)
 SVC.fit(bpol_Xtrain,y_train)
-print "Linear SVM score: \t",SVC.score(bpol_Xtest,y_test)
+print "Radial SVM score: \t",SVC.score(bpol_Xtest,y_test), SVC.best_params_
 
 GNB.fit(bpol_Xtrain,y_train)
 print "Gaussian Naive Bayes score: \t", GNB.score(bpol_Xtest,y_test)
 
-KNN.fit(bpol_Xtrain,y_train)
-print "K-NearestNeighbor score: \t", KNN.score(bpol_Xtest,y_test)
+print "*" * 50
