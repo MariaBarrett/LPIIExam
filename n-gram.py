@@ -241,7 +241,6 @@ def crossval(X_train, y_train, folds, ngr):
 	return bestnum
 """
 NaiveBayes just calls the SK-learn gaussian naive bayes and prints the accuracy and the classification report
-
 """
 def NaiveBayes(X_train, y_train, X_test, y_test):
 	clf = naive_bayes.GaussianNB()
@@ -254,6 +253,30 @@ def NaiveBayes(X_train, y_train, X_test, y_test):
 	y_true, y_pred = y_test, clf.predict(X_test)
 	print classification_report(y_true, y_pred)
 
+"""
+shifter adds 
+"""
+def shifter(dataset):
+	not_list = ['n\'t', 'not' 'never', 'none', 'nobody', 'nowhere', 'nothing', 'neither']
+	intensify_list = ['very', 'deeply', 'really']
+	deintensify = ['barely', 'rather', 'hardly', 'rarely', 'quite'] 
+	dataset_c = np.copy(dataset)
+
+	for review in dataset_c:
+		for sentence in review:
+			if len(set(sentence).intersection( set(not_list))) > 0:
+				for i in xrange(len(sentence)):
+					if sentence[i] in not_list:
+						sentence[i+1] = 'NOT_'+sentence[i+1]
+					if sentence[i] in intensify_list:
+						sentence[i+1] = 'MORE_'+sentence[i+1]
+					if sentence[i] in deintensify:
+						sentence[i+1] = 'LESS_'+sentence[i+1]
+
+	return dataset_c
+
+train_shift = shifter(X_train)
+"""
 #######################################################################################
 #
 #					Calling
@@ -379,4 +402,4 @@ X_train_trigram_feat_sel = X_train_trigram[:,indices_important_feats_tri]
 X_test_trigram_feat_sel = X_test_trigram[:,indices_important_feats_tri]
 
 supvecmac(X_train_trigram_feat_sel, y_train, X_test_trigram_feat_sel, y_test)
-
+"""
