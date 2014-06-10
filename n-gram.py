@@ -254,28 +254,34 @@ def NaiveBayes(X_train, y_train, X_test, y_test):
 	print classification_report(y_true, y_pred)
 
 """
-shifter adds 
+shifter expects an entire feature set. 
+It contains 3 lists of words:
+It runs through all reviews and all sentences.  
+if intensifier is found, then the subsequent word gets MORE_ or LESS_ glued to it.
+If a negation is found then the all the subsequent words in the sentence get NOT_ attached
+The new dataset is returned.
 """
 def shifter(dataset):
 	not_list = ['n\'t', 'not' 'never', 'none', 'nobody', 'nowhere', 'nothing', 'neither']
 	intensify_list = ['very', 'deeply', 'really']
-	deintensify = ['barely', 'rather', 'hardly', 'rarely', 'quite'] 
+	deintensify = ['barely', 'rather', 'hardly', 'rarely'] 
 	dataset_c = np.copy(dataset)
-
 	for review in dataset_c:
 		for sentence in review:
-			if len(set(sentence).intersection( set(not_list))) > 0:
-				for i in xrange(len(sentence)):
-					if sentence[i] in not_list:
-						sentence[i+1] = 'NOT_'+sentence[i+1]
-					if sentence[i] in intensify_list:
-						sentence[i+1] = 'MORE_'+sentence[i+1]
-					if sentence[i] in deintensify:
-						sentence[i+1] = 'LESS_'+sentence[i+1]
-
+			for i in xrange(len(sentence)):						
+				"""
+				if sentence[i] in intensify_list:
+					sentence[i+1] = 'MORE_'+sentence[i+1]
+				if sentence[i] in deintensify:
+					sentence[i+1] = 'LESS_'+sentence[i+1]
+				"""
+				if sentence[i] in not_list:
+					sentence[i+1:] = ['NOT_'+sentence[k] for k in xrange(i+1, len(sentence)) ]
 	return dataset_c
 
-train_shift = shifter(X_train)
+X_train_shift = shifter(X_train)
+X_test_shift = shifter(X_test)
+
 """
 #######################################################################################
 #
