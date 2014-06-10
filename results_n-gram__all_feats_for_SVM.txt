@@ -4,126 +4,29 @@ n-gram
 ---------------------------------------------
 Bigram Naive Bayes
 ---------------------------------------------
+loading pickle files...
 Starting 5 fold cross validation for finding best number of features
-Using 500 most frequent bigrams out of 67052
-Average accuracy of 500 features: 0.606800
-Using 1000 most frequent bigrams out of 67052
-Average accuracy of 1000 features: 0.644000
-Using 2000 most frequent bigrams out of 67052
-Average accuracy of 2000 features: 0.656000
-Using 4000 most frequent bigrams out of 67052
-Average accuracy of 4000 features: 0.667600
-Using 8000 most frequent bigrams out of 67052
-Average accuracy of 8000 features: 0.662800
+Average accuracy of 500 features: 0.562400
+Average accuracy of 1000 features: 0.592000
+Average accuracy of 2000 features: 0.614000
+Average accuracy of 4000 features: 0.611600
+Average accuracy of 8000 features: 0.615600
+Average accuracy of 16000 features: 0.629600
+Average accuracy of 32000 features: 0.629200
 
-Best number of features = 4000: test error = 0.667600
+Best number of features = 16000: test error = 0.629600
 
-Using 4000 most frequent bigrams out of 67052
-NTLK Naive Bayes bigram accuracy using best number of features: 0.678
-Most Informative Features
-       ('will', 'never') = True                0 : 1      =     45.3 : 1.0
-       ('never', 'stay') = True                0 : 1      =     33.6 : 1.0
-    ('not', 'recommend') = True                0 : 2      =     29.1 : 1.0
-         ('i', 'called') = True                0 : 2      =     27.2 : 1.0
-        ('all', 'night') = True                0 : 2      =     25.3 : 1.0
-         ("n't", 'work') = True                0 : 2      =     24.6 : 1.0
-      ('the', 'manager') = True                0 : 2      =     22.7 : 1.0
-        ('the', 'worst') = True                0 : 2      =     21.7 : 1.0
-       ('the', 'carpet') = True                0 : 2      =     21.4 : 1.0
-          (',', 'great') = True                2 : 0      =     21.2 : 1.0
-         ('at', 'least') = True                0 : 2      =     20.8 : 1.0
-        ('they', 'said') = True                0 : 2      =     20.8 : 1.0
-         ('desk', 'and') = True                0 : 2      =     18.9 : 1.0
-         ("n't", 'even') = True                0 : 1      =     18.6 : 1.0
-        ('loved', 'the') = True                2 : 0      =     18.4 : 1.0
-        ('the', 'walls') = True                0 : 2      =     17.6 : 1.0
-            ('is', 'no') = True                0 : 2      =     17.0 : 1.0
-          ('down', 'to') = True                0 : 2      =     17.0 : 1.0
-        ('the', 'floor') = True                0 : 2      =     16.7 : 1.0
-         ('not', 'even') = True                0 : 1      =     16.6 : 1.0
+Naive Bayes Accuracy 0.652
 
-20^
+Detailed classification report:
 
-         ('paid', 'for') = True                0 : 2      =     16.3 : 1.0
-        ('said', 'they') = True                0 : 2      =     16.3 : 1.0
-    ('was', 'excellent') = True                2 : 0      =     15.6 : 1.0
-    ('to', 'everything') = True                2 : 0      =     15.6 : 1.0
-         ('rude', 'and') = True                0 : 1      =     15.3 : 1.0
-          ('again', '!') = True                2 : 1      =     15.3 : 1.0
-         ('not', 'stay') = True                0 : 2      =     15.2 : 1.0
-           ('got', 'to') = True                0 : 2      =     15.0 : 1.0
-           ('no', 'one') = True                0 : 2      =     14.4 : 1.0
-        ('not', 'clean') = True                0 : 1      =     14.0 : 1.0
- ('very', 'comfortable') = True                2 : 0      =     13.8 : 1.0
-           (',', 'when') = True                0 : 2      =     13.8 : 1.0
-       ('very', 'clean') = True                2 : 0      =     13.7 : 1.0
-        ('said', 'that') = True                0 : 1      =     13.4 : 1.0
-        ('told', 'that') = True                0 : 1      =     13.4 : 1.0
-       ('would', 'stay') = True                1 : 0      =     13.3 : 1.0
-        ('we', 'called') = True                0 : 1      =     12.7 : 1.0
-      ('great', 'place') = True                2 : 1      =     12.6 : 1.0
-       ('great', 'view') = True                2 : 0      =     12.2 : 1.0
-         ('we', 'loved') = True                2 : 0      =     12.2 : 1.0
-       ('was', 'pretty') = True                1 : 0      =     11.9 : 1.0
-           ('do', 'not') = True                0 : 2      =     11.8 : 1.0
-         ('told', 'the') = True                0 : 2      =     11.8 : 1.0
-          ('kind', 'of') = True                0 : 2      =     11.8 : 1.0
-         ('very', 'bad') = True                0 : 2      =     11.8 : 1.0
-     ('smelled', 'like') = True                0 : 2      =     11.7 : 1.0
-  ('definitely', 'stay') = True                2 : 0      =     11.5 : 1.0
-     ('was', 'horrible') = True                0 : 1      =     11.4 : 1.0
-       ('star', 'hotel') = True                0 : 1      =     11.4 : 1.0
-      ('would', 'never') = True                0 : 1      =     11.4 : 1.0
-     ('room', 'smelled') = True                0 : 1      =     11.4 : 1.0
-  ('will', 'definitely') = True                2 : 1      =     11.2 : 1.0
-     ('the', 'elevator') = True                0 : 2      =     11.2 : 1.0
-          ('to', 'give') = True                0 : 2      =     11.2 : 1.0
-          ('not', 'get') = True                0 : 2      =     11.2 : 1.0
-       ('very', 'noisy') = True                0 : 2      =     11.2 : 1.0
-          ('great', '!') = True                2 : 0      =     10.8 : 1.0
-  ('very', 'convenient') = True                2 : 0      =     10.8 : 1.0
-        ('cable', 'car') = True                2 : 0      =     10.8 : 1.0
-  ('comfortable', 'bed') = True                2 : 0      =     10.8 : 1.0
-       ('long', 'beach') = True                2 : 0      =     10.8 : 1.0
-          ('which', 'i') = True                0 : 1      =     10.8 : 1.0
-        ('the', 'clerk') = True                0 : 1      =     10.8 : 1.0
-     ('and', 'friendly') = True                2 : 0      =     10.6 : 1.0
-       ('carpet', 'was') = True                0 : 2      =     10.6 : 1.0
-            ('bad', ',') = True                0 : 2      =     10.6 : 1.0
-         ('does', "n't") = True                0 : 2      =     10.6 : 1.0
-         ('will', 'not') = True                0 : 2      =     10.6 : 1.0
-         ('not', 'work') = True                0 : 2      =     10.6 : 1.0
-      ('wonderful', '.') = True                2 : 1      =     10.5 : 1.0
-     ('was', 'terrible') = True                0 : 1      =     10.1 : 1.0
-           ('stay', '!') = True                2 : 0      =     10.1 : 1.0
-       ('distance', '.') = True                2 : 0      =     10.1 : 1.0
-            ('if', 'it') = True                0 : 2      =      9.9 : 1.0
-            ('pay', '$') = True                0 : 2      =      9.9 : 1.0
-           ('to', 'let') = True                0 : 2      =      9.9 : 1.0
-     ('bathroom', 'and') = True                0 : 2      =      9.9 : 1.0
-      ('first', 'night') = True                0 : 2      =      9.8 : 1.0
-           ('the', 'tv') = True                0 : 2      =      9.5 : 1.0
-         ('then', 'the') = True                0 : 1      =      9.5 : 1.0
-         ('anyone', '.') = True                0 : 1      =      9.5 : 1.0
-          ('awful', '.') = True                0 : 1      =      9.5 : 1.0
-        ('when', 'they') = True                0 : 1      =      9.5 : 1.0
-           ('me', 'for') = True                0 : 1      =      9.5 : 1.0
-        ('a', 'manager') = True                0 : 1      =      9.5 : 1.0
-         ('and', 'will') = True                0 : 1      =      9.5 : 1.0
-           ('i', 'paid') = True                0 : 2      =      9.4 : 1.0
-         ('asked', 'to') = True                0 : 2      =      9.4 : 1.0
-      ('great', 'staff') = True                2 : 0      =      9.4 : 1.0
-          ('quiet', ',') = True                2 : 0      =      9.4 : 1.0
-    ('great', 'service') = True                2 : 0      =      9.4 : 1.0
-         ('was', 'told') = True                0 : 1      =      9.4 : 1.0
-         ('could', 'do') = True                0 : 2      =      9.3 : 1.0
-       ('refused', 'to') = True                0 : 2      =      9.3 : 1.0
-        ('night', 'for') = True                0 : 2      =      9.3 : 1.0
-         ('were', 'not') = True                0 : 2      =      9.3 : 1.0
-            ('bad', '.') = True                0 : 2      =      9.3 : 1.0
-         ('too', 'much') = True                0 : 2      =      9.3 : 1.0
-        ('and', 'asked') = True                0 : 2      =      9.3 : 1.0
-         ('very', 'old') = True                0 : 2      =      9.3 : 1.0
+             precision    recall  f1-score   support
+
+          0       0.63      0.83      0.72       149
+          1       0.59      0.42      0.49       168
+          2       0.72      0.72      0.72       183
+
+avg / total       0.65      0.65      0.64       500
 
 ---------------------------------------------
 Bigram SVM
