@@ -7,12 +7,15 @@ from sklearn.svm import SVC
 from sklearn.grid_search import GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
+from sklearn.feature_extraction.text import TfidfTransformer
 
 SVC = SVC(kernel="rbf")
-parameters = {'C': [ 8,10,12,14,16,], 'gamma':[0.001,0.01,0.1,1]}
+parameters = {'C': [ 8,10,12,14,16,]	, 'gamma':[0.001,0.01,0.1,1]}
 
 GNB = GaussianNB()
 KNN = KNeighborsClassifier(n_neighbors=3)
+transformer = TfidfTransformer()
+
 
 targets = pickle.load( open( "targets.p", "rb" ) )
 dataset = pickle.load( open( "dataset.p", "rb" ) )
@@ -51,10 +54,10 @@ neg_words = ["bad", "disgusting", "terrible", "wrong", "worst", "terrible",
 					"annoying","small", "uncomfortable", "waiting", "wait",
 					"dark", "difficult", "bad","expensive", "dirty",
 					 "stained", "old", "used","smelly", "rude"]
-print len(pos_words),len(neg_words)
-assert len(pos_words) == len(neg_words)
+
 
 def simpleclassification(x_test,y_test,pos_words,neg_words):
+
 	labels = []
 	for doc in x_test:
 		pos,neg = 0,0,
@@ -148,29 +151,29 @@ def check(X_train,features):
 			unused_features.append(features[i])
 
 	if unused_features == []:
-		print "No unused features"
+		return "No unused features"
 	else:
 		return unused_features
 
 
 print "\n","*"*50,"\n", " Method: Polarity and Subjectivity \n"
 
+
+#Extracting the binary feature set
 bpol_Xtrain = [polarityfeatures(d,word_features,mode="sklearn") for d in X_train]
 bpol_Xtest = [polarityfeatures(d,word_features,mode="sklearn") for d in X_test]
+
+#Extracting the tf-idf feature set
 pol_Xtrain = [polarityfeatures(d,word_features,mode="sklearn",calc="freq") for d in X_train]
 pol_Xtest = [polarityfeatures(d,word_features,mode="sklearn",calc="freq") for d in X_test]
+tfidf_Xtrain = transformer.fit_transform(pol_Xtrain).toarray()
+tfidf_Xtest = transformer.transform(pol_Xtest).toarray()
 
-score = 0
-dump = 0
-for i in xrange(len(pol_Xtrain)):
-	for id in xrange(len(pol_Xtrain[i])):
-		dump +=1
-		if pol_Xtrain[i][id] == bpol_Xtrain[i][id]:
-			score +=1
-print X_train[0]
-print bpol_Xtrain[0]
-print pol_Xtrain[0]
-print score/dump
+
+""" 
+------------------------------------------------
+Results !
+"""
 
 print "Unused features: \t",check(bpol_Xtrain,word_features)
 
@@ -186,10 +189,10 @@ GNB.fit(bpol_Xtrain,y_train)
 print "Gaussian Naive Bayes score: \t", GNB.score(bpol_Xtest,y_test)
 
 SVR = GridSearchCV(SVC, parameters)
-SVR.fit(pol_Xtrain,y_train)
-print "Radial SVM Freq score: \t",SVR.score(pol_Xtest,y_test), SVR.best_params_
+SVR.fit(tfidf_Xtrain,y_train)
+print "TFIDF Radial SVM score: \t",SVR.score(tfidf_Xtest,y_test), SVR.best_params_
 
-GNB.fit(pol_Xtrain,y_train)
-print "Gaussian Naive Bayes Freq score: \t", GNB.score(pol_Xtest,y_test)
+GNB.fit(tfidf_Xtrain,y_train)
+print "TFIDF Gaussian Naive Bayes score: \t", GNB.score(tfidf_Xtest,y_test)
 
 print "*" * 50
