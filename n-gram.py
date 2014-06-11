@@ -20,6 +20,13 @@ y_train = targets[:2500]
 X_test = dataset[2500:]
 y_test = targets[2500:]
 
+
+##########################################################################
+#
+#				Making n-grams
+#
+#########################################################################
+
 """
 ngram expects a dataset without labels and a string specifing the n of n-gram. 
 That string must contain either 'bi' or 'tri'. 
@@ -61,12 +68,38 @@ def getngram_singlereview(review, ngr):
 	return ngrams
 
 
+
+"""
+binarize binarizes the dataset from all features found in the train set. 
+First it calls getngram_singlereview to get all ngrams in a review.
+For every review it checks for all ngrams from the train set and appends 1 if the ngram appers in the review and 0 if not.
+it returns the binarized dataset as a numpy array. 
+"""
+def binarize(dataset, all_ngrams, ngr):
+	binary_dataset = []
+	for review in dataset:
+		review_ngrams = getngram_singlereview(review, ngr)
+		temp = []	
+		for ngram in all_ngrams:
+			if ngram in review_ngrams:
+				temp.append(1)
+			elif ngram not in review_ngrams:
+				temp.append(0)
+		binary_dataset.append(temp)
+	return(np.asarray(binary_dataset))
+
+
+##########################################################################
+#
+#				Feature selection
+#
+#########################################################################
+
 """ 
 tree_selection returns the indices for the n best features of a given dataset
 and its target labels. The n parameter should be
 choosen by visual inspection using the inspect_tree_selection function. 
 """ 
-
 def tree_selection(train_data,train_labels, n):
 	forest = ExtraTreesClassifier(n_estimators=250, random_state=0)
 	forest.fit(train_data, train_labels)
@@ -75,12 +108,12 @@ def tree_selection(train_data,train_labels, n):
 
 	return indices[:n]
 
+
 """ 
 inspect_tree_selection expects a dataset and its target labels as well as all bigrams from the train set. 
 I sorts the features in decending order of importance.
 It prints and visualizes them in a plot.
 """
-
 def inspect_tree_selection(train_data, train_labels, all_bigrams, task):
 	forest = ExtraTreesClassifier(n_estimators=250, random_state=0)
 	forest.fit(train_data, train_labels)
@@ -105,25 +138,12 @@ def inspect_tree_selection(train_data, train_labels, all_bigrams, task):
 	print "plot saved"
 	
 
+##########################################################################
+#
+#				Clasifiers
+#
+#########################################################################
 
-"""
-binarize binarizes the dataset from all features found in the train set. 
-First it calls getngram_singlereview to get all ngrams in a review.
-For every review it checks for all ngrams from the train set and appends 1 if the ngram appers in the review and 0 if not.
-it returns the binarized dataset as a numpy array. 
-"""
-def binarize(dataset, all_ngrams, ngr):
-	binary_dataset = []
-	for review in dataset:
-		review_ngrams = getngram_singlereview(review, ngr)
-		temp = []	
-		for ngram in all_ngrams:
-			if ngram in review_ngrams:
-				temp.append(1)
-			elif ngram not in review_ngrams:
-				temp.append(0)
-		binary_dataset.append(temp)
-	return(np.asarray(binary_dataset))
 
 """
 supvecmac expects a train set with labels and a test set with labels.
@@ -151,11 +171,28 @@ def supvecmac(X_train, y_train, X_test, y_test):
 
 
 
+"""
+NaiveBayes just calls the SK-learn gaussian naive bayes and prints the accuracy and the classification report
+"""
+def NaiveBayes(X_train, y_train, X_test, y_test):
+	clf = naive_bayes.GaussianNB()
+	clf.fit(X_train, y_train)
+
+	print "\nNaive Bayes Accuracy", clf.score(X_test, y_test)
+
+	print "\nDetailed classification report:"
+	print ""
+	y_true, y_pred = y_test, clf.predict(X_test)
+	print classification_report(y_true, y_pred)
+
+
+
 ##########################################################################
 #
 #				Crossvalidation
 #
 #########################################################################
+
 
 """
 This function splits the train set and labels in s equal sized splits. 
@@ -239,67 +276,36 @@ def crossval(X_train, y_train, folds, ngr):
 	bestnum = accuracy[0][0]
 	print "\nBest number of features = %s: test error = %.6f" %(bestnum, bestperf)
 	return bestnum
-"""
-NaiveBayes just calls the SK-learn gaussian naive bayes and prints the accuracy and the classification report
-"""
-def NaiveBayes(X_train, y_train, X_test, y_test):
-	clf = naive_bayes.GaussianNB()
-	clf.fit(X_train, y_train)
 
-	print "\nNaive Bayes Accuracy", clf.score(X_test, y_test)
 
-	print "\nDetailed classification report:"
-	print ""
-	y_true, y_pred = y_test, clf.predict(X_test)
-	print classification_report(y_true, y_pred)
-
-"""
-shifter expects an entire feature set. 
-It contains 3 lists of words:
-It runs through all reviews and all sentences.  
-if intensifier is found, then the subsequent word gets MORE_ or LESS_ glued to it.
-If a negation is found then the all the subsequent words in the sentence get NOT_ attached
-The new dataset is returned.
-"""
-def shifter(dataset):
-	not_list = ['n\'t', 'not' 'never', 'none', 'nobody', 'nowhere', 'nothing', 'neither']
-	intensify_list = ['very', 'deeply', 'really']
-	deintensify = ['barely', 'rather', 'hardly', 'rarely'] 
-	dataset_c = np.copy(dataset)
-	for review in dataset_c:
-		for sentence in review:
-			for i in xrange(len(sentence)):						
-				"""
-				if sentence[i] in intensify_list:
-					sentence[i+1] = 'MORE_'+sentence[i+1]
-				if sentence[i] in deintensify:
-					sentence[i+1] = 'LESS_'+sentence[i+1]
-				"""
-				if sentence[i] in not_list:
-					sentence[i+1:] = ['NOT_'+sentence[k] for k in xrange(i+1, len(sentence)) ]
-	return dataset_c
-
-X_train_shift = shifter(X_train)
-X_test_shift = shifter(X_test)
-
-"""
 #######################################################################################
 #
 #					Calling
 #
 #######################################################################################
 
+#---------------------------------------------------------------------------------------
+#
+#	Make section below active if you have already created the pickle files
+#
+#---------------------------------------------------------------------------------------
 print "loading pickle bigram files..."
 X_train_bigram = pickle.load( open( "X_train_bigram.p", "rb" ) )
 X_test_bigram = pickle.load( open( "X_test_bigram.p", "rb" ) )
 
 indices_important_feats_bi = pickle.load( open( "1000_bigram_indices.p", "rb" ) )
+#---------------------------------------------------------------------------------------
+#End loading pickle files
 
-#######################################################################
+
+
+
+#---------------------------------------------------------------------------------------
 #
-#	Make section below active if you want to make a new bigram dataset - very time consuming
+#	Comment section below out if you already have made pickle files
 #
-######################################################################
+#---------------------------------------------------------------------------------------
+
 #all_bigr = ngram(X_train, 'bigram', 67052) #starting with all features
 #
 #print "Done making bigrams from train set"
@@ -320,7 +326,10 @@ indices_important_feats_bi = pickle.load( open( "1000_bigram_indices.p", "rb" ) 
 #pickle.dump(indices_important_feats_bi, open( "1000_bigram_indices.p", "wb" ) )
 #print "Done and pickle file created"
 #
-############################################################################
+#---------------------------------------------------------------------------------------
+#End making pickle files
+
+
 
 #Bigram
 print "*"*45
@@ -357,17 +366,27 @@ print "-"*45
 print "Trigram Naive Bayes "
 print "-"*45
 
+#---------------------------------------------------------------------------------------
+#
+#	Make section below active if you have already created the pickle files
+#
+#---------------------------------------------------------------------------------------
+
+
 print "loading pickle trigram files..."
 X_train_trigram = pickle.load( open( "X_train_trigram.p", "rb" ) )
 X_test_trigram = pickle.load( open( "X_test_trigram.p", "rb" ) )
 indices_important_feats_tri = pickle.load( open( "1000_trigram_indices.p", "rb" ) )
+#---------------------------------------------------------------------------------------
+#End loading pickle files
 
-#######################################################################
+
+
+#---------------------------------------------------------------------------------------
 #
-#	Make section below active if you want to make a new trigram dataset - very time consuming
+#	Comment this section out if you already made pickle files
 #
-######################################################################
-#
+#---------------------------------------------------------------------------------------#
 #all_trigr = ngram(X_train, 'trigram', 127175) #all trigrams
 #print "Done making trigrams from train set"
 #print "Making trigrams and binarizing train set..."
@@ -388,7 +407,10 @@ indices_important_feats_tri = pickle.load( open( "1000_trigram_indices.p", "rb" 
 #
 #pickle.dump(indices_important_feats_tri, open( "1000_trigram_indices.p", "wb" ) )
 #print "Done and pickle file created"
-######################################################################################
+#---------------------------------------------------------------------------------------
+#End making pickle files
+
+
 
 best_num_feats_tri = crossval(X_train_trigram, y_train, 5, 'trigram')
 
