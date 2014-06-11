@@ -1,0 +1,83 @@
+No. of features (all): 9874
+No. of features (all + valence shifters): 12333
+Naive Bayes, All Features, Presence Only
+**********
+Naive Bayes Accuracy : 82.4 %
+**********
+
+SVM, All Features, Presence Only
+**********
+SVM Accuracy: 29.8 %
+**********
+
+Naive Bayes, All Features, Word Frequency
+**********
+Naive Bayes Accuracy : 81.4 %
+**********
+
+SVM, All Features, Word Frequency
+**********
+SVM Accuracy: 42.8 %
+**********
+
+Naive Bayes, All Features + Negation/intensifier List, Presence Only
+**********
+Naive Bayes Accuracy : 80.0 %
+**********
+
+SVM, All Features + Negation/intensifier List, Presence Only
+**********
+SVM Accuracy: 29.8 %
+**********
+
+Naive Bayes, All Features + Negation/intensifier List, Word Frequency
+**********
+Naive Bayes Accuracy : 78.8 %
+**********
+
+SVM, All Features + Negation/intensifier List, Word Frequency
+**********
+SVM Accuracy: 42.0 %
+**********
+
+No. of features (reduced): 4607
+No. of features (reduced + valence shifters): 5698
+Naive Bayes, Reduced Features, Presence Only
+**********
+Naive Bayes Accuracy : 85.0 %
+**********
+
+SVM, Reduced Features, Presence Only
+**********
+SVM Accuracy: 50.4 %
+**********
+
+Naive Bayes, Reduced Features, Word Frequency
+**********
+Naive Bayes Accuracy : 84.2 %
+**********
+
+SVM, Reduced Features, Word Frequency
+**********
+SVM Accuracy: 66.2 %
+**********
+
+Naive Bayes, Reduced Features + Negation/intensifier List, Presence Only
+**********
+Naive Bayes Accuracy : 83.4 %
+**********
+
+SVM, Reduced Features + Negation/intensifier List, Presence Only
+**********
+SVM Accuracy: 46.6 %
+**********
+
+Naive Bayes, Reduced Features + Negation/intensifier List, Word Frequency
+**********
+Naive Bayes Accuracy : 82.6 %
+**********
+
+SVM, Reduced Features + Negation/intensifier List, Word Frequency
+**********
+SVM Accuracy: 64.4 %
+**********
