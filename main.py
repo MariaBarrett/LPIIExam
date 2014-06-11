@@ -9,14 +9,13 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 
 SVC = SVC(kernel="rbf")
-parameters = {'C': [ 8,10,12,14,16,], 'gamma':[0.01,0.1,1,10]}
+parameters = {'C': [ 8,10,12,14,16,], 'gamma':[0.001,0.01,0.1,1]}
 
 GNB = GaussianNB()
 KNN = KNeighborsClassifier(n_neighbors=3)
 
-
-targets = pickle.load( open( "targets_easy.p", "rb" ) )
-dataset = pickle.load( open( "dataset_easy.p", "rb" ) )
+targets = pickle.load( open( "targets.p", "rb" ) )
+dataset = pickle.load( open( "dataset.p", "rb" ) )
 
 #Dataset structure: [[[sentence 1 in review1], [sentence 2 in review 1] ...], [[sentence 1 in review 2], [sentence 2 in review 2] ...] ...]
 # Dataset is shuffled and balanced, 1000 each of pos, neu and neg
@@ -27,21 +26,61 @@ y_train = targets[:2500]
 X_test = dataset[2500:]
 y_test = targets[2500:]
 
-
-
 """ List of words expressing polarity and subjectivity """
 
 word_features = ["good","wonderful", "perfect","best", "love", "satisfied",
-					 "positive", "amazing", "awesome","beautiful",
-					 "excellent","fantastic", "great", "happy",
+					 "positive", "amazing", "awesome","beautiful", "helpful",
+					 "excellent","fantastic", "great", "accomodating",
 					"cheap", "quality", "beautiful", "friendly", "comfortable",
-					"friendly", "clean", "close", "big", "spacious", 
+					"friendly", "clean", "close", "big", "spacious", "nice",
 
-					"bad", "disgusting", "terrible", "wrong", "worst",
+					"bad", "disgusting", "terrible", "wrong", "worst", "terrible",
 					"ridiculous", "hate", "noisy", "negative", "horrible",
 					"annoying","small", "uncomfortable", "waiting", "wait",
-					"dark", "long", "difficult", "bad","expensive", "dirty",
+					"dark", "difficult", "bad","expensive", "dirty",
 					 "stained", "old", "used","smelly", "rude"]
+
+pos_words = ["good","wonderful", "perfect","best", "love", "satisfied",
+					 "positive", "amazing", "awesome","beautiful", "helpful",
+					 "excellent","fantastic", "great", "accomodating",
+					"cheap", "quality", "beautiful", "friendly", "comfortable",
+					"friendly", "clean", "close", "big", "spacious", "nice"]
+
+neg_words = ["bad", "disgusting", "terrible", "wrong", "worst", "terrible",
+					"ridiculous", "hate", "noisy", "negative", "horrible",
+					"annoying","small", "uncomfortable", "waiting", "wait",
+					"dark", "difficult", "bad","expensive", "dirty",
+					 "stained", "old", "used","smelly", "rude"]
+print len(pos_words),len(neg_words)
+assert len(pos_words) == len(neg_words)
+
+def simpleclassification(x_test,y_test,pos_words,neg_words):
+	labels = []
+	for doc in x_test:
+		pos,neg = 0,0,
+
+		for sent in doc:
+			for i in xrange(len(pos_words)):
+				if pos_words[i] in sent:
+					pos +=1
+				if neg_words[i] in sent:
+					neg +=1
+
+		if pos > neg:
+			labels.append(2)
+		elif neg > pos:
+			labels.append(0)
+		else:
+			labels.append(1)
+
+	#measuring accuracy
+	score = 0
+	for i in xrange(len(labels)):
+		if labels[i] == y_test[i]:
+			score +=1
+	fscore = score/len(y_test)
+
+	return fscore
 
 
 
@@ -50,7 +89,7 @@ word_features = ["good","wonderful", "perfect","best", "love", "satisfied",
 		If mode == "nltk" : returns a dictionary of Boolean statements for each feature
 		If mode == "sklearn" : returns a single list of binary values for each feature
 """
-def binary_polarityfeatures(document,word_features,mode="nltk"):
+def polarityfeatures(document,word_features,mode="sklearn",calc="binary"):
 	if mode == "nltk":
 		document_words = set(document)
 		features = {}
@@ -60,13 +99,23 @@ def binary_polarityfeatures(document,word_features,mode="nltk"):
 
 	elif mode == "sklearn":
 		features = []
-
 		doc = np.array(document).flatten()
-		for word in word_features:
-				if word in doc:
-					features.append(1)
-				else: features.append(0)
+		features = np.zeros(len(word_features))
+		
+		if calc == "binary":
+			for sent in doc:
+				for i in xrange(len(word_features)):
+					if word_features[i] in sent:
+						if features[i] != 1:
+							features[i] = 1
 
+
+		if calc == "freq":
+			features = np.zeros(len(word_features))
+			for sent in doc:
+				for i in xrange(len(word_features)):
+					if word_features[i] in sent:
+						features[i] += 1
 
 	else: return "Unknown mode"
 
@@ -106,18 +155,41 @@ def check(X_train,features):
 
 print "\n","*"*50,"\n", " Method: Polarity and Subjectivity \n"
 
-bpol_Xtrain = [binary_polarityfeatures(d,word_features,mode="sklearn") for d in X_train]
-bpol_Xtest = [binary_polarityfeatures(d,word_features,mode="sklearn") for d in X_test]
+bpol_Xtrain = [polarityfeatures(d,word_features,mode="sklearn") for d in X_train]
+bpol_Xtest = [polarityfeatures(d,word_features,mode="sklearn") for d in X_test]
+pol_Xtrain = [polarityfeatures(d,word_features,mode="sklearn",calc="freq") for d in X_train]
+pol_Xtest = [polarityfeatures(d,word_features,mode="sklearn",calc="freq") for d in X_test]
+
+score = 0
+dump = 0
+for i in xrange(len(pol_Xtrain)):
+	for id in xrange(len(pol_Xtrain[i])):
+		dump +=1
+		if pol_Xtrain[i][id] == bpol_Xtrain[i][id]:
+			score +=1
+print X_train[0]
+print bpol_Xtrain[0]
+print pol_Xtrain[0]
+print score/dump
 
 print "Unused features: \t",check(bpol_Xtrain,word_features)
 
 print "Baseline result: \t",baseline(y_train,y_test)
 
-SVC = GridSearchCV(SVC, parameters)
-SVC.fit(bpol_Xtrain,y_train)
-print "Radial SVM score: \t",SVC.score(bpol_Xtest,y_test), SVC.best_params_
+print "Simple Classification: \t", simpleclassification(X_test,y_test,pos_words,neg_words)
+
+SVCC = GridSearchCV(SVC, parameters)
+SVCC.fit(bpol_Xtrain,y_train)
+print "Radial SVM score: \t",SVCC.score(bpol_Xtest,y_test), SVCC.best_params_
 
 GNB.fit(bpol_Xtrain,y_train)
 print "Gaussian Naive Bayes score: \t", GNB.score(bpol_Xtest,y_test)
+
+SVR = GridSearchCV(SVC, parameters)
+SVR.fit(pol_Xtrain,y_train)
+print "Radial SVM Freq score: \t",SVR.score(pol_Xtest,y_test), SVR.best_params_
+
+GNB.fit(pol_Xtrain,y_train)
+print "Gaussian Naive Bayes Freq score: \t", GNB.score(pol_Xtest,y_test)
 
 print "*" * 50
