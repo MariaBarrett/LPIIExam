@@ -10,12 +10,15 @@ from sklearn.naive_bayes import GaussianNB
 import pylab as pl
 import operator
 from collections import Counter as C
+from sklearn.grid_search import GridSearchCV
+from sklearn.feature_extraction.text import TfidfTransformer
+
 
 #import ngram
 
 
-targets = load( open( "targets.p", "rb" ) )
-dataset = load( open( "dataset.p", "rb" ) )
+targets = load( open( "targets_easy.p", "rb" ) )
+dataset = load( open( "dataset_easy.p", "rb" ) )
 
 ''' Create bag of words '''
 ''' 
@@ -159,6 +162,10 @@ def RunNaiveBayes(X_train, y_train, X_test, y_test):
 	print "*" * 10
 	print "Naive Bayes Accuracy :", correct / len(y_test) * 100, "%"
 	print "*" * 10
+	print "\nDetailed classification report:"
+	print ""
+	y_pred = gnb.predict(X_test)
+	print classification_report(y_test, y_pred)
 
 
 
@@ -166,16 +173,22 @@ def RunNaiveBayes(X_train, y_train, X_test, y_test):
 def RunSVM(X_train, y_train, X_test, y_test):
 	parameters = {'C': [ 8,10,12,14,16]	, 'gamma':[0.001,0.01,0.1,1]}
 
-	clf = svm.SVC()
+	clf = svm.SVC(C=14, gamma=0.1)
 
-	svc = GridSearchCV(clf, parameters)
-	svc.fit(Xtrain,y_train)
+	#svc = GridSearchCV(clf, parameters)
+	#svc.fit(X_train, y_train)
+	clf.fit(X_train, y_train)
 
 	''' print accuracy '''
 	print "*" * 10
-	print "SVM Accuracy:: \t",svc.score(Xtest,y_test), svc.best_params_
+	print "SVM Accuracy:: \t%",(clf.score(X_test, y_test))*100#, svc.best_params_
 	print "*" * 10
 
+
+	print "\nDetailed classification report:"
+	print ""
+	y_pred = clf.predict(X_test)
+	print classification_report(y_test, y_pred)
 
 
 #####################################################
@@ -224,6 +237,10 @@ print "Naive Bayes, All Features, Presence Only"
 RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
 print
 print "SVM, All Features, Presence Only"
+transformer = TfidfTransformer()
+X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
+
 RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
 print
 
@@ -236,9 +253,12 @@ print "Naive Bayes, All Features, Word Frequency"
 RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
 print
 print "SVM, All Features, Word Frequency"
+transformer = TfidfTransformer()
+X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
+
 RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
 print
-
 
 
 X_train_binarized = CreateBOW(negCounter, X_train_neg, y_train, "pres")
@@ -248,6 +268,9 @@ print "Naive Bayes, All Features + Negation/intensifier List, Presence Only"
 RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
 print
 print "SVM, All Features + Negation/intensifier List, Presence Only"
+transformer = TfidfTransformer()
+X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
 RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
 print 
 
@@ -260,6 +283,9 @@ print "Naive Bayes, All Features + Negation/intensifier List, Word Frequency"
 RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
 print
 print "SVM, All Features + Negation/intensifier List, Word Frequency"
+transformer = TfidfTransformer()
+X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
 RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
 print 
 
@@ -281,6 +307,9 @@ print "Naive Bayes, Reduced Features, Presence Only"
 RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
 print
 print "SVM, Reduced Features, Presence Only"
+transformer = TfidfTransformer()
+X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
 RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
 print
 
@@ -292,6 +321,9 @@ print "Naive Bayes, Reduced Features, Word Frequency"
 RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
 print
 print "SVM, Reduced Features, Word Frequency"
+transformer = TfidfTransformer()
+X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
 RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
 print
 
@@ -303,6 +335,9 @@ print "Naive Bayes, Reduced Features + Negation/intensifier List, Presence Only"
 RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
 print
 print "SVM, Reduced Features + Negation/intensifier List, Presence Only"
+transformer = TfidfTransformer()
+X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
 RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
 print 
 
@@ -314,24 +349,9 @@ print "Naive Bayes, Reduced Features + Negation/intensifier List, Word Frequency
 RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
 print
 print "SVM, Reduced Features + Negation/intensifier List, Word Frequency"
+transformer = TfidfTransformer()
+X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
 RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
 print 
-
-
-
-
-
-
-#bow_nltk = ReadBOW()
-
-# classifier = nltk.NaiveBayesClassifier.train(X_train)
-# print nltk.classify.accuracy(classifier, X_test)
-# classifier.show_most_informative_features(5) 
-
-
-# print "Starting feature selection using CART random forests"
-# inspect_tree_selection(X_train, y_train, 'bow')
-# print "Getting indices for most important features..."
-# indices_important_feats_bi = tree_selection(X_train_bigram, y_train, 1000) 
-
 

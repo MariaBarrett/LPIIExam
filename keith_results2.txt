@@ -1,0 +1,261 @@
+No. of features (all): 10080
+No. of features (all + valence shifters): 12517
+Naive Bayes, All Features, Presence Only
+**********
+Naive Bayes Accuracy : 88.2 %
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.87      0.89      0.88       149
+          1       0.84      0.80      0.82       168
+          2       0.93      0.95      0.94       183
+
+avg / total       0.88      0.88      0.88       500
+
+
+SVM, All Features, Presence Only
+**********
+SVM Accuracy:: 	% 90.4
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.94      0.96      0.95       149
+          1       0.86      0.85      0.86       168
+          2       0.91      0.91      0.91       183
+
+avg / total       0.90      0.90      0.90       500
+
+
+Naive Bayes, All Features, Word Frequency
+**********
+Naive Bayes Accuracy : 87.8 %
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.87      0.88      0.87       149
+          1       0.84      0.79      0.81       168
+          2       0.92      0.96      0.94       183
+
+avg / total       0.88      0.88      0.88       500
+
+
+SVM, All Features, Word Frequency
+**********
+SVM Accuracy:: 	% 87.6
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.92      0.96      0.94       149
+          1       0.84      0.77      0.81       168
+          2       0.86      0.90      0.88       183
+
+avg / total       0.87      0.88      0.87       500
+
+
+Naive Bayes, All Features + Negation/intensifier List, Presence Only
+**********
+Naive Bayes Accuracy : 86.4 %
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.81      0.90      0.85       149
+          1       0.83      0.77      0.80       168
+          2       0.94      0.92      0.93       183
+
+avg / total       0.87      0.86      0.86       500
+
+
+SVM, All Features + Negation/intensifier List, Presence Only
+**********
+SVM Accuracy:: 	% 89.8
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.92      0.96      0.94       149
+          1       0.87      0.83      0.85       168
+          2       0.91      0.91      0.91       183
+
+avg / total       0.90      0.90      0.90       500
+
+
+Naive Bayes, All Features + Negation/intensifier List, Word Frequency
+**********
+Naive Bayes Accuracy : 86.2 %
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.80      0.89      0.84       149
+          1       0.82      0.77      0.79       168
+          2       0.95      0.93      0.94       183
+
+avg / total       0.86      0.86      0.86       500
+
+
+SVM, All Features + Negation/intensifier List, Word Frequency
+**********
+SVM Accuracy:: 	% 86.2
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.91      0.95      0.93       149
+          1       0.83      0.76      0.79       168
+          2       0.85      0.88      0.87       183
+
+avg / total       0.86      0.86      0.86       500
+
+
+No. of features (reduced): 4719
+No. of features (reduced + valence shifters): 5814
+Naive Bayes, Reduced Features, Presence Only
+**********
+Naive Bayes Accuracy : 90.2 %
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.91      0.89      0.90       149
+          1       0.86      0.85      0.85       168
+          2       0.93      0.97      0.95       183
+
+avg / total       0.90      0.90      0.90       500
+
+
+SVM, Reduced Features, Presence Only
+**********
+SVM Accuracy:: 	% 91.0
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.95      0.96      0.95       149
+          1       0.86      0.88      0.87       168
+          2       0.93      0.90      0.91       183
+
+avg / total       0.91      0.91      0.91       500
+
+
+Naive Bayes, Reduced Features, Word Frequency
+**********
+Naive Bayes Accuracy : 90.2 %
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.91      0.88      0.89       149
+          1       0.86      0.85      0.85       168
+          2       0.94      0.97      0.95       183
+
+avg / total       0.90      0.90      0.90       500
+
+
+SVM, Reduced Features, Word Frequency
+**********
+SVM Accuracy:: 	% 89.2
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.93      0.97      0.95       149
+          1       0.84      0.84      0.84       168
+          2       0.91      0.88      0.89       183
+
+avg / total       0.89      0.89      0.89       500
+
+
+Naive Bayes, Reduced Features + Negation/intensifier List, Presence Only
+**********
+Naive Bayes Accuracy : 89.6 %
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.85      0.92      0.88       149
+          1       0.88      0.81      0.84       168
+          2       0.95      0.96      0.95       183
+
+avg / total       0.90      0.90      0.90       500
+
+
+SVM, Reduced Features + Negation/intensifier List, Presence Only
+**********
+SVM Accuracy:: 	% 90.6
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.91      0.97      0.94       149
+          1       0.87      0.86      0.86       168
+          2       0.93      0.90      0.91       183
+
+avg / total       0.91      0.91      0.91       500
+
+
+Naive Bayes, Reduced Features + Negation/intensifier List, Word Frequency
+**********
+Naive Bayes Accuracy : 89.2 %
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.85      0.91      0.88       149
+          1       0.87      0.80      0.84       168
+          2       0.95      0.96      0.95       183
+
+avg / total       0.89      0.89      0.89       500
+
+
+SVM, Reduced Features + Negation/intensifier List, Word Frequency
+**********
+SVM Accuracy:: 	% 87.4
+**********
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.91      0.97      0.94       149
+          1       0.83      0.80      0.82       168
+          2       0.89      0.86      0.88       183
+
+avg / total       0.87      0.87      0.87       500
+
+
+[Finished in 4091.7s]
