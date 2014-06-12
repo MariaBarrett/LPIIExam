@@ -23,7 +23,6 @@ y_train = targets[:2500]
 X_test = dataset[2500:]
 y_test = targets[2500:]
 
-
 ##########################################################################
 #
 #				Making n-grams
@@ -194,7 +193,7 @@ def NaiveBayes(X_train, y_train, X_test, y_test):
 #	Make section below active if you have already created the pickle files
 #
 #---------------------------------------------------------------------------------------
-
+"""
 print "Loading pickle bigram files..."
 X_train_bi_binary = pickle.load( open( "X_train_bi_binary.p", "rb" ) )
 X_test_bi_binary = pickle.load( open( "X_test_bi_binary.p", "rb" ) )
@@ -204,7 +203,7 @@ X_test_bi_tfidf = pickle.load( open( "X_test_bi_tfidf.p", "rb" ) )
 
 indices_important_feats_bi_tfidf = pickle.load( open( "indices_important_feats_bi_tfidf.p", "rb" ) )
 indices_important_feats_bi_bin = pickle.load( open( "indices_important_feats_bi_bin.p", "rb" ) )
-
+"""
 #---------------------------------------------------------------------------------------
 #End loading pickle files
 
@@ -215,7 +214,7 @@ indices_important_feats_bi_bin = pickle.load( open( "indices_important_feats_bi_
 #	Comment section below out if you already have made pickle files
 #
 #---------------------------------------------------------------------------------------
-"""
+
 all_bigr = ngram(X_train, 'bigram') #starting with all features
 
 print "Starting counting bigrams..."
@@ -252,7 +251,7 @@ print "Done and pickle file created"
 
 #---------------------------------------------------------------------------------------
 #End making pickle files
-"""
+
 
 print "*"*45
 print "n-gram"
@@ -296,7 +295,7 @@ supvecmac(X_train_bi_tfidf_sel, y_train, X_test_bi_tfidf_sel, y_test)
 #	Make section below active if you have already created the pickle files
 #
 #---------------------------------------------------------------------------------------
-
+"""
 print "Loading pickle trigram files..."
 X_train_tri_tfidf = pickle.load( open( "X_train_tri_tfidf.p", "rb" ) )
 X_test_tri_tfidf = pickle.load( open( "X_test_tri_tfidf.p", "rb" ) )
@@ -306,7 +305,7 @@ X_test_tri_binary = pickle.load( open( "X_test_tri_binary.p", "rb" ) )
 
 indices_important_feats_tri_bin = pickle.load( open( "indices_important_feats_tri_bin.p", "rb" ) )
 indices_important_feats_tri_tfidf = pickle.load( open( "indices_important_feats_tri_tfidf.p", "rb" ) )
-
+"""
 #---------------------------------------------------------------------------------------
 #End loading pickle files
 
@@ -315,9 +314,7 @@ indices_important_feats_tri_tfidf = pickle.load( open( "indices_important_feats_
 #	Comment this section out if you already made pickle files
 #
 #---------------------------------------------------------------------------------------#
-"""
 all_trigr = ngram(X_train, 'trigram')
-
 print "Done making trigrams from train set"
 
 print "Starting counting trigrams..."
@@ -352,7 +349,7 @@ print "Starting feature selection using CART random forests on TF-IDF"
 indices_important_feats_tri_tfidf = inspect_tree_selection(X_train_tri_tfidf, y_train, all_trigr, 'Trigram_TF-IDF')
 pickle.dump(indices_important_feats_tri_tfidf, open( "indices_important_feats_tri_tfidf.p", "wb" ) )
 print "Done and pickle file created"
-"""
+
 #---------------------------------------------------------------------------------------
 #End making pickle files
 
