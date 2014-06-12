@@ -6,6 +6,7 @@ from sklearn import svm, naive_bayes, grid_search
 from sklearn.metrics import classification_report
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.preprocessing import Binarizer
 import pylab as pl
 import operator
 from collections import Counter
@@ -72,7 +73,7 @@ def getngram_singlereview(review, ngr):
 count function makes vectors from dataset from all features found in the train set. 
 First it calls getngram_singlereview to get all ngrams in a review.
 For every review it checks for all ngrams from the train set and appends 1 if the ngram appers in the review and 0 if not.
-it returns the binarized dataset as a numpy array. 
+it returns the counted dataset as a numpy array. 
 """
 def count(dataset, all_ngrams, ngr):
 	counted_dataset = []
@@ -110,7 +111,7 @@ It prints and visualizes them in a plot.
 It returns a list of feature indices, where the features are sorted by decending importance. 
 """
 def inspect_tree_selection(train_data, train_labels, all_bigrams, task):
-	forest = ExtraTreesClassifier(n_estimators=250, random_state=0)
+	forest = ExtraTreesClassifier(n_estimators=100, random_state=0)
 	forest.fit(train_data, train_labels)
 	importances = forest.feature_importances_
 	std = np.std([tree.feature_importances_ for tree in forest.estimators_], axis=0)
@@ -193,16 +194,20 @@ def NaiveBayes(X_train, y_train, X_test, y_test):
 #	Make section below active if you have already created the pickle files
 #
 #---------------------------------------------------------------------------------------
-"""
+
 print "Loading pickle bigram files..."
+X_train_bi_binary = pickle.load( open( "X_train_bi_binary.p", "rb" ) )
+X_test_bi_binary = pickle.load( open( "X_test_bi_binary.p", "rb" ) )
+
 X_train_bi_tfidf = pickle.load( open( "X_train_bi_tfidf.p", "rb" ) )
 X_test_bi_tfidf = pickle.load( open( "X_test_bi_tfidf.p", "rb" ) )
 
-indices_important_feats_bi = pickle.load( open( "indices_important_feats_bi.p", "rb" ) )
+indices_important_feats_bi_tfidf = pickle.load( open( "indices_important_feats_bi_tfidf.p", "rb" ) )
+indices_important_feats_bi_bin = pickle.load( open( "indices_important_feats_bi_bin.p", "rb" ) )
+
 #---------------------------------------------------------------------------------------
 #End loading pickle files
-"""
-"""
+
 
 
 #---------------------------------------------------------------------------------------
@@ -210,7 +215,7 @@ indices_important_feats_bi = pickle.load( open( "indices_important_feats_bi.p", 
 #	Comment section below out if you already have made pickle files
 #
 #---------------------------------------------------------------------------------------
-
+"""
 all_bigr = ngram(X_train, 'bigram') #starting with all features
 
 print "Starting counting bigrams..."
@@ -219,21 +224,35 @@ print "Done counting train set"
 X_test_bi_counted = count(X_test, all_bigr, 'bigram')
 print "Done counting test set"
 
+print "Binarizing and dumping files"
+bin = Binarizer()
+X_train_bi_binary = bin.fit_transform(X_train_bi_counted)
+X_test_bi_binary = bin.transform(X_test_bi_counted)
+pickle.dump(X_train_bi_binary, open( "X_train_bi_binary.p", "wb" ) )
+pickle.dump(X_test_bi_binary, open( "X_test_bi_binary.p", "wb" ) )
+print "Done"
+
+
 print "Starting tfidf vectors..."
 X_train_bi_tfidf, X_test_bi_tfidf = tfidf(X_train_bi_counted, X_test_bi_counted)
 pickle.dump(X_train_bi_tfidf, open( "X_train_bi_tfidf.p", "wb" ) )
 pickle.dump(X_test_bi_tfidf, open( "X_test_bi_tfidf.p", "wb" ) )
 print "Done"
 
-print "Starting feature selection using CART random forests"
-indices_important_feats_bi = inspect_tree_selection(X_train_bi_tfidf, y_train, all_bigr, 'Bigram_TFIDF')
 
-pickle.dump(indices_important_feats_bi, open( "indices_important_feats_bi.p", "wb" ) )
+print "Starting feature selection using CART random forests on binary files"
+indices_important_feats_bi_bin = inspect_tree_selection(X_train_bi_binary, y_train, all_bigr, 'Bigram_binary')
+pickle.dump(indices_important_feats_bi_bin, open( "indices_important_feats_bi_bin.p", "wb" ) )
+print "Done and pickle file created"
+
+print "Starting feature selection using CART random forests on TF-IDF"
+indices_important_feats_bi_tfidf = inspect_tree_selection(X_train_bi_tfidf, y_train, all_bigr, 'Bigram_TF-IDF')
+pickle.dump(indices_important_feats_bi_tfidf, open( "indices_important_feats_bi_tfidf.p", "wb" ) )
 print "Done and pickle file created"
 
 #---------------------------------------------------------------------------------------
 #End making pickle files
-
+"""
 
 print "*"*45
 print "n-gram"
@@ -241,31 +260,36 @@ print "*"*45
 
 #Bigram
 
-#only the 750 most important features
-indices_important_feats_bi = indices_important_feats_bi[:750]
+#only the most important features
+indices_important_feats_bi_tfidf = indices_important_feats_bi_tfidf[:1000]
+indices_important_feats_bi_bin = indices_important_feats_bi_bin[:1000]
 
-X_train_bi_tfidf_sel = X_train_bi_tfidf[:,indices_important_feats_bi]
-X_test_bi_tfidf_sel = X_test_bi_tfidf[:,indices_important_feats_bi]
+X_train_bi_tfidf_sel = X_train_bi_tfidf[:,indices_important_feats_bi_tfidf]
+X_test_bi_tfidf_sel = X_test_bi_tfidf[:,indices_important_feats_bi_tfidf]
+
+X_train_bi_bin_sel = X_train_bi_binary[:,indices_important_feats_bi_bin]
+X_test_bi_bin_sel = X_test_bi_binary[:,indices_important_feats_bi_bin]
 
 print "-"*45
 print "Bigram Naive Bayes"
 print "-"*45
-
-NaiveBayes(X_train_bi_tfidf_sel, y_train, X_test_bi_tfidf_sel, y_test)
+print "Binary"
+NaiveBayes(X_train_bi_bin_sel, y_train, X_test_bi_bin_sel, y_test)
 print ""
+print "TF-IDF"
+NaiveBayes(X_train_bi_tfidf_sel, y_train, X_test_bi_tfidf_sel, y_test)
 
 print "-"*45
 print "Bigram SVM" 
 print "-"*45
+print "Binary"
+supvecmac(X_train_bi_bin_sel, y_train, X_test_bi_bin_sel, y_test)
 
+print "TF-IDF"
 supvecmac(X_train_bi_tfidf_sel, y_train, X_test_bi_tfidf_sel, y_test)
 
-"""
 
 #Trigram
-print "-"*45
-print "Trigram Naive Bayes "
-print "-"*45
 
 #---------------------------------------------------------------------------------------
 #
@@ -275,8 +299,14 @@ print "-"*45
 
 print "Loading pickle trigram files..."
 X_train_tri_tfidf = pickle.load( open( "X_train_tri_tfidf.p", "rb" ) )
-X_test_tri_tfids = pickle.load( open( "X_test_tri_tfidf.p", "rb" ) )
-indices_important_feats_tri = pickle.load( open( "indices_important_feats_tri.p", "rb" ) )
+X_test_tri_tfidf = pickle.load( open( "X_test_tri_tfidf.p", "rb" ) )
+
+X_train_tri_binary = pickle.load( open( "X_train_tri_binary.p", "rb" ) )
+X_test_tri_binary = pickle.load( open( "X_test_tri_binary.p", "rb" ) )
+
+indices_important_feats_tri_bin = pickle.load( open( "indices_important_feats_tri_bin.p", "rb" ) )
+indices_important_feats_tri_tfidf = pickle.load( open( "indices_important_feats_tri_tfidf.p", "rb" ) )
+
 #---------------------------------------------------------------------------------------
 #End loading pickle files
 
@@ -285,7 +315,9 @@ indices_important_feats_tri = pickle.load( open( "indices_important_feats_tri.p"
 #	Comment this section out if you already made pickle files
 #
 #---------------------------------------------------------------------------------------#
+"""
 all_trigr = ngram(X_train, 'trigram')
+
 print "Done making trigrams from train set"
 
 print "Starting counting trigrams..."
@@ -294,36 +326,59 @@ print "Done counting train set"
 X_test_tri_counted = count(X_test, all_trigr, 'trigram')
 print "Done counting test set"
 
+
+print "Binarizing and dumping files"
+bin = Binarizer()
+X_train_tri_binary = bin.fit_transform(X_train_tri_counted)
+X_test_tri_binary = bin.transform(X_test_tri_counted)
+pickle.dump(X_train_tri_binary, open( "X_train_tri_binary.p", "wb" ) )
+pickle.dump(X_test_tri_binary, open( "X_test_tri_binary.p", "wb" ) )
+print "Done"
+
 print "Starting tfidf vectors..."
 X_train_tri_tfidf, X_test_tri_tfidf = tfidf(X_train_tri_counted, X_test_tri_counted)
 pickle.dump(X_train_tri_tfidf, open( "X_train_tri_tfidf.p", "wb" ) )
 pickle.dump(X_test_tri_tfidf, open( "X_test_tri_tfidf.p", "wb" ) )
 print "Done"
 
-print "Starting feature selection using CART random forests" 
-indices_important_feats_tri = inspect_tree_selection(X_train_tri_tfidf, y_train, all_trigr, 'Trigram_TFIDF')
-pickle.dump(indices_important_feats_tri, open( "indices_important_feats_tri.p", "wb" ) )
+
+print "Starting feature selection using CART random forests on binary files"
+indices_important_feats_tri_bin = inspect_tree_selection(X_train_tri_binary, y_train, all_trigr, 'Trigram_binary')
+pickle.dump(indices_important_feats_tri_bin, open( "indices_important_feats_tri_bin.p", "wb" ) )
 print "Done and pickle file created"
 
+
+print "Starting feature selection using CART random forests on TF-IDF" 
+indices_important_feats_tri_tfidf = inspect_tree_selection(X_train_tri_tfidf, y_train, all_trigr, 'Trigram_TF-IDF')
+pickle.dump(indices_important_feats_tri_tfidf, open( "indices_important_feats_tri_tfidf.p", "wb" ) )
+print "Done and pickle file created"
+"""
 #---------------------------------------------------------------------------------------
 #End making pickle files
 
-#Only taking the 750 most important features
-indices_important_feats_tri = indices_important_feats_tri[:750]
+#Only taking the most important features
+indices_important_feats_tri_bin = indices_important_feats_tri_bin[:1000]
+indices_important_feats_tri_tfidf = indices_important_feats_tri_tfidf[:1000]
 
-X_train_tri_feat_sel = X_train_trigram[:,indices_important_feats_tri]
-X_test_tri_feat_sel = X_test_trigram[:,indices_important_feats_tri]
+X_train_tri_feat_sel_bin = X_train_tri_binary[:,indices_important_feats_tri_bin]
+X_test_tri_feat_sel_bin = X_test_tri_binary[:,indices_important_feats_tri_bin]
+
+X_train_tri_feat_sel_tfidf = X_train_tri_tfidf[:,indices_important_feats_tri_tfidf]
+X_test_tri_feat_sel_tfidf = X_test_tri_tfidf[:,indices_important_feats_tri_tfidf]
 
 print "-"*45
 print "Trigram Naive Bayes "
 print "-"*45
-
-NaiveBayes(X_train_tri_feat_sel, y_train, X_test_tri_feat_sel, y_test)
-
+print "Binary"
+NaiveBayes(X_train_tri_feat_sel_bin, y_train, X_test_tri_feat_sel_bin, y_test)
+print "TF_IDF"
+NaiveBayes(X_train_tri_feat_sel_tfidf, y_train, X_test_tri_feat_sel_tfidf, y_test)
 print ""
 
 print "-"*45
 print "Trigram SVM "
 print "-"*45
-
-supvecmac(X_train_tri_feat_sel, y_train, X_test_tri_feat_sel, y_test)
+print "Binary"
+supvecmac(X_train_tri_feat_sel_bin, y_train, X_test_tri_feat_sel_bin, y_test)
+print "TF_IDF"
+supvecmac(X_train_tri_feat_sel_tfidf, y_train, X_test_tri_feat_sel_tfidf, y_test)
