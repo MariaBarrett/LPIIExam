@@ -104,33 +104,30 @@ def tfidf(X_train, X_test):
 
 
 """ 
-inspect_tree_selection expects a dataset and its target labels as well as all bigrams from the train set. 
-I sorts the features in decending order of importance.
-It prints and visualizes them in a plot.
-It returns a list of feature indices, where the features are sorted by decending importance. 
+tree expect a train set and adjacent labels as well as names of all features (for printing)
+
 """
-def inspect_tree_selection(train_data, train_labels, all_bigrams, task):
+def tree(train_data, train_labels, all_bigrams, task):
 	forest = ExtraTreesClassifier(n_estimators=100, random_state=0)
 	forest.fit(train_data, train_labels)
 	importances = forest.feature_importances_
-	std = np.std([tree.feature_importances_ for tree in forest.estimators_], axis=0)
 	indices = np.argsort(importances)[::-1]
 
 	# Print the feature ranking
 	print "-"*45
-	print("\nFeature ranking for %s task:" %(task))
+	print task
 
-	for f in range(100):
+	for f in range(20):
 	  print("%d. feature, name: %s, importance: %f" % (f + 1, all_bigrams[indices[f]], importances[indices[f]]))
 
 	# Plot the feature importances of the forest
 	pl.figure()
 	n = train_data.shape[1]
 	n = 2000
-	pl.title("%s: Sorted tree selection feature importance" %(task))
+	pl.title("Sorted feature importance for %s" %(task))
 	pl.bar(range(n), importances[indices][:n], color="black", align="center")
-	pl.xlim([-1, (n)])
-	pl.xticks([num for num  in range(0, n, 250)])
+	pl.xlim([0, (n)])
+	pl.xticks([num for num  in range(0, n+1, 250)])
 	pl.savefig(task+'.pdf', bbox_inches='tight')
 	print "plot saved"
 
@@ -241,12 +238,12 @@ print "Done"
 
 
 print "Starting feature selection using CART random forests on binary files"
-indices_important_feats_bi_bin = inspect_tree_selection(X_train_bi_binary, y_train, all_bigr, 'Bigram_binary')
+indices_important_feats_bi_bin = tree(X_train_bi_binary, y_train, all_bigr, 'Bigram_binary')
 pickle.dump(indices_important_feats_bi_bin, open( "indices_important_feats_bi_bin.p", "wb" ) )
 print "Done and pickle file created"
 
 print "Starting feature selection using CART random forests on TF-IDF"
-indices_important_feats_bi_tfidf = inspect_tree_selection(X_train_bi_tfidf, y_train, all_bigr, 'Bigram_TF-IDF')
+indices_important_feats_bi_tfidf = tree(X_train_bi_tfidf, y_train, all_bigr, 'Bigram_TF-IDF')
 pickle.dump(indices_important_feats_bi_tfidf, open( "indices_important_feats_bi_tfidf.p", "wb" ) )
 print "Done and pickle file created"
 
@@ -341,13 +338,13 @@ print "Done"
 
 
 print "Starting feature selection using CART random forests on binary files"
-indices_important_feats_tri_bin = inspect_tree_selection(X_train_tri_binary, y_train, all_trigr, 'Trigram_binary')
+indices_important_feats_tri_bin = tree(X_train_tri_binary, y_train, all_trigr, 'Trigram_binary')
 pickle.dump(indices_important_feats_tri_bin, open( "indices_important_feats_tri_bin.p", "wb" ) )
 print "Done and pickle file created"
 
 
 print "Starting feature selection using CART random forests on TF-IDF" 
-indices_important_feats_tri_tfidf = inspect_tree_selection(X_train_tri_tfidf, y_train, all_trigr, 'Trigram_TF-IDF')
+indices_important_feats_tri_tfidf = tree(X_train_tri_tfidf, y_train, all_trigr, 'Trigram_TF-IDF')
 pickle.dump(indices_important_feats_tri_tfidf, open( "indices_important_feats_tri_tfidf.p", "wb" ) )
 print "Done and pickle file created"
 
