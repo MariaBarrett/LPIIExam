@@ -9,6 +9,7 @@ from sklearn.grid_search import GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.feature_extraction.text import TfidfTransformer
+from bow_unigram_Keith import *
 
 SVC = SVC(kernel="rbf")
 parameters = {'C': [ 8,10,12,14,16,]	, 'gamma':[0.001,0.01,0.1,1]}
@@ -109,4 +110,4 @@ print "Gaussian Naive Bayes score: \t", GNB.score(tfidf_Xtest,y_test)
 
 print "*" * 50
 
-""" ---------------------------------------- End of Polarity and Subjectivity ----------------------------------- ""
+""" ---------------------------------------- End of Polarity and Subjectivity ----------------------------------- """
