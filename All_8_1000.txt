@@ -1,0 +1,581 @@
+In [13]: run n-gram.py
+Starting counting bigrams...
+Done counting train set
+Done counting test set
+Binarizing and dumping files
+Done
+Starting tfidf vectors...
+Done
+Starting feature selection using CART random forests on binary files
+---------------------------------------------
+
+Feature ranking for Bigram_binary task:
+1. feature, name: ('a', 'great'), importance: 0.007306
+2. feature, name: ('was', 'not'), importance: 0.006044
+3. feature, name: ('had', 'to'), importance: 0.005949
+4. feature, name: (',', 'but'), importance: 0.005222
+5. feature, name: ('clean', 'and'), importance: 0.004832
+6. feature, name: ('very', 'clean'), importance: 0.004463
+7. feature, name: ('did', 'not'), importance: 0.004349
+8. feature, name: ('will', 'never'), importance: 0.004213
+9. feature, name: ('was', 'great'), importance: 0.004024
+10. feature, name: ('do', "n't"), importance: 0.003742
+11. feature, name: ('the', 'worst'), importance: 0.003654
+12. feature, name: ('this', 'hotel'), importance: 0.003621
+13. feature, name: ('i', 'was'), importance: 0.003337
+14. feature, name: ('but', 'the'), importance: 0.003258
+15. feature, name: ('on', 'the'), importance: 0.003206
+16. feature, name: ('do', 'not'), importance: 0.003161
+17. feature, name: ('in', 'the'), importance: 0.003133
+18. feature, name: ('very', 'nice'), importance: 0.003115
+19. feature, name: ('the', 'hotel'), importance: 0.003093
+20. feature, name: ('a', 'little'), importance: 0.003077
+21. feature, name: ('would', 'not'), importance: 0.003063
+22. feature, name: ('to', 'be'), importance: 0.002998
+23. feature, name: ('the', 'room'), importance: 0.002996
+24. feature, name: ('walking', 'distance'), importance: 0.002977
+25. feature, name: ('front', 'desk'), importance: 0.002974
+26. feature, name: ('the', 'staff'), importance: 0.002941
+27. feature, name: ('did', "n't"), importance: 0.002845
+28. feature, name: ("n't", 'work'), importance: 0.002805
+29. feature, name: ('the', 'location'), importance: 0.002691
+30. feature, name: ('room', 'was'), importance: 0.002665
+31. feature, name: ('never', 'stay'), importance: 0.002657
+32. feature, name: ('close', 'to'), importance: 0.002642
+33. feature, name: (',', 'great'), importance: 0.002635
+34. feature, name: ('dirty', '.'), importance: 0.002626
+35. feature, name: ('the', 'floor'), importance: 0.002609
+36. feature, name: ('was', 'perfect'), importance: 0.002601
+37. feature, name: ('all', 'night'), importance: 0.002593
+38. feature, name: ('the', 'bathroom'), importance: 0.002565
+39. feature, name: ('i', 'have'), importance: 0.002512
+40. feature, name: ('for', 'the'), importance: 0.002505
+41. feature, name: ('and', 'the'), importance: 0.002488
+42. feature, name: ('hotel', 'was'), importance: 0.002459
+43. feature, name: ('of', 'the'), importance: 0.002450
+44. feature, name: ('will', 'not'), importance: 0.002387
+45. feature, name: ('at', 'the'), importance: 0.002366
+46. feature, name: ('however', ','), importance: 0.002340
+47. feature, name: ('[', '...'), importance: 0.002309
+48. feature, name: ('when', 'i'), importance: 0.002273
+49. feature, name: ('again', '.'), importance: 0.002246
+50. feature, name: ('not', 'worth'), importance: 0.002242
+51. feature, name: ('staff', 'was'), importance: 0.002144
+52. feature, name: ('very', 'comfortable'), importance: 0.002119
+53. feature, name: ('to', 'the'), importance: 0.002107
+54. feature, name: ('i', 'will'), importance: 0.002104
+55. feature, name: ('was', 'very'), importance: 0.002103
+56. feature, name: ('the', 'price'), importance: 0.002029
+57. feature, name: ('room', '.'), importance: 0.002004
+58. feature, name: ('not', 'recommend'), importance: 0.001987
+59. feature, name: ('was', 'ok'), importance: 0.001970
+60. feature, name: ('the', 'best'), importance: 0.001969
+61. feature, name: ('not', 'stay'), importance: 0.001938
+62. feature, name: ('it', 'was'), importance: 0.001921
+63. feature, name: (',', 'and'), importance: 0.001901
+64. feature, name: ('great', 'location'), importance: 0.001894
+65. feature, name: ('and', 'they'), importance: 0.001886
+66. feature, name: ('hotel', 'is'), importance: 0.001882
+67. feature, name: ('old', 'and'), importance: 0.001866
+68. feature, name: ('i', 'would'), importance: 0.001833
+69. feature, name: ('not', 'clean'), importance: 0.001827
+70. feature, name: ('was', 'a'), importance: 0.001820
+71. feature, name: ('nothing', 'special'), importance: 0.001799
+72. feature, name: ('friendly', 'and'), importance: 0.001769
+73. feature, name: ('very', 'friendly'), importance: 0.001741
+74. feature, name: ('comfortable', '.'), importance: 0.001735
+75. feature, name: ('hotel', '.'), importance: 0.001686
+76. feature, name: ('excellent', ','), importance: 0.001684
+77. feature, name: ('rude', 'and'), importance: 0.001673
+78. feature, name: (',', 'the'), importance: 0.001664
+79. feature, name: ('again', '!'), importance: 0.001660
+80. feature, name: ('called', 'the'), importance: 0.001658
+81. feature, name: ('the', 'front'), importance: 0.001644
+82. feature, name: ('was', 'nice'), importance: 0.001636
+83. feature, name: ('at', 'all'), importance: 0.001635
+84. feature, name: ('was', 'clean'), importance: 0.001630
+85. feature, name: ('a', 'perfect'), importance: 0.001629
+86. feature, name: ('clean', ','), importance: 0.001615
+87. feature, name: (',', 'i'), importance: 0.001611
+88. feature, name: ('if', 'you'), importance: 0.001608
+89. feature, name: (',', 'no'), importance: 0.001597
+90. feature, name: ('to', 'san'), importance: 0.001587
+91. feature, name: ('very', 'bad'), importance: 0.001572
+92. feature, name: ('bad', 'experience'), importance: 0.001561
+93. feature, name: ('a', 'bit'), importance: 0.001545
+94. feature, name: ('...', ']'), importance: 0.001529
+95. feature, name: ('a', 'good'), importance: 0.001510
+96. feature, name: ('for', 'a'), importance: 0.001503
+97. feature, name: ('to', 'get'), importance: 0.001479
+98. feature, name: ('and', 'i'), importance: 0.001477
+99. feature, name: (')', '.'), importance: 0.001470
+100. feature, name: ('breakfast', 'is'), importance: 0.001466
+plot saved
+Done and pickle file created
+Starting feature selection using CART random forests on TF-IDF
+---------------------------------------------
+
+Feature ranking for Bigram_TF-IDF task:
+1. feature, name: (',', 'but'), importance: 0.005795
+2. feature, name: ('had', 'to'), importance: 0.004920
+3. feature, name: ('was', 'not'), importance: 0.004444
+4. feature, name: ('will', 'never'), importance: 0.004428
+5. feature, name: ('a', 'great'), importance: 0.004364
+6. feature, name: ('very', 'clean'), importance: 0.003605
+7. feature, name: ('in', 'the'), importance: 0.003462
+8. feature, name: ('clean', 'and'), importance: 0.003270
+9. feature, name: ('on', 'the'), importance: 0.002991
+10. feature, name: ('but', 'the'), importance: 0.002985
+11. feature, name: ('this', 'hotel'), importance: 0.002978
+12. feature, name: ('room', 'was'), importance: 0.002967
+13. feature, name: ('the', 'room'), importance: 0.002967
+14. feature, name: ('the', 'staff'), importance: 0.002839
+15. feature, name: ('was', 'great'), importance: 0.002785
+16. feature, name: ('for', 'the'), importance: 0.002744
+17. feature, name: ('did', 'not'), importance: 0.002727
+18. feature, name: ('never', 'stay'), importance: 0.002719
+19. feature, name: ('do', "n't"), importance: 0.002653
+20. feature, name: ('the', 'hotel'), importance: 0.002651
+21. feature, name: ('the', 'location'), importance: 0.002557
+22. feature, name: ('was', 'a'), importance: 0.002515
+23. feature, name: ('staff', 'was'), importance: 0.002484
+24. feature, name: ('a', 'little'), importance: 0.002465
+25. feature, name: ('close', 'to'), importance: 0.002433
+26. feature, name: ('all', 'night'), importance: 0.002427
+27. feature, name: ('walking', 'distance'), importance: 0.002418
+28. feature, name: ('front', 'desk'), importance: 0.002396
+29. feature, name: ('when', 'i'), importance: 0.002337
+30. feature, name: ('was', 'very'), importance: 0.002336
+31. feature, name: ('very', 'nice'), importance: 0.002336
+32. feature, name: ('and', 'the'), importance: 0.002244
+33. feature, name: ('hotel', 'was'), importance: 0.002232
+34. feature, name: (',', 'great'), importance: 0.002215
+35. feature, name: ('it', 'was'), importance: 0.002206
+36. feature, name: ('at', 'the'), importance: 0.002160
+37. feature, name: ('the', 'worst'), importance: 0.002145
+38. feature, name: ('do', 'not'), importance: 0.002107
+39. feature, name: ('to', 'the'), importance: 0.002102
+40. feature, name: ('to', 'be'), importance: 0.002101
+41. feature, name: ('i', 'was'), importance: 0.002037
+42. feature, name: ('dirty', '.'), importance: 0.002027
+43. feature, name: ('not', 'recommend'), importance: 0.002021
+44. feature, name: ('would', 'not'), importance: 0.002020
+45. feature, name: (',', 'and'), importance: 0.002010
+46. feature, name: ('again', '.'), importance: 0.001970
+47. feature, name: ('will', 'not'), importance: 0.001963
+48. feature, name: ('however', ','), importance: 0.001937
+49. feature, name: (',', 'the'), importance: 0.001926
+50. feature, name: ('not', 'clean'), importance: 0.001887
+51. feature, name: ('was', 'perfect'), importance: 0.001853
+52. feature, name: ('hotel', 'is'), importance: 0.001852
+53. feature, name: ('clean', ','), importance: 0.001789
+54. feature, name: ("n't", 'work'), importance: 0.001787
+55. feature, name: ('of', 'the'), importance: 0.001785
+56. feature, name: ('the', 'floor'), importance: 0.001768
+57. feature, name: ('did', "n't"), importance: 0.001746
+58. feature, name: ('i', 'have'), importance: 0.001691
+59. feature, name: ('[', '...'), importance: 0.001690
+60. feature, name: ('room', '.'), importance: 0.001681
+61. feature, name: ('the', 'price'), importance: 0.001666
+62. feature, name: ('the', 'bathroom'), importance: 0.001653
+63. feature, name: ('old', 'and'), importance: 0.001627
+64. feature, name: ('...', ']'), importance: 0.001605
+65. feature, name: ('was', 'ok'), importance: 0.001594
+66. feature, name: ('was', 'clean'), importance: 0.001593
+67. feature, name: ('a', 'bit'), importance: 0.001590
+68. feature, name: ('would', "n't"), importance: 0.001584
+69. feature, name: ('friendly', 'and'), importance: 0.001569
+70. feature, name: ('nothing', 'special'), importance: 0.001563
+71. feature, name: ('very', 'comfortable'), importance: 0.001550
+72. feature, name: ('not', 'stay'), importance: 0.001546
+73. feature, name: ('a', 'good'), importance: 0.001529
+74. feature, name: ('i', 'would'), importance: 0.001528
+75. feature, name: ('was', 'nice'), importance: 0.001524
+76. feature, name: ('for', 'a'), importance: 0.001514
+77. feature, name: ('had', 'a'), importance: 0.001510
+78. feature, name: ('great', 'location'), importance: 0.001495
+79. feature, name: ('and', 'they'), importance: 0.001477
+80. feature, name: ('breakfast', 'is'), importance: 0.001471
+81. feature, name: ('helpful', '.'), importance: 0.001465
+82. feature, name: ('is', 'a'), importance: 0.001452
+83. feature, name: ('comfortable', '.'), importance: 0.001440
+84. feature, name: ('there', 'was'), importance: 0.001426
+85. feature, name: ('we', 'were'), importance: 0.001421
+86. feature, name: ('rude', 'and'), importance: 0.001406
+87. feature, name: ('location', 'is'), importance: 0.001398
+88. feature, name: ('!', '!'), importance: 0.001389
+89. feature, name: ('good', 'for'), importance: 0.001387
+90. feature, name: ('bad', 'experience'), importance: 0.001375
+91. feature, name: ('place', 'to'), importance: 0.001362
+92. feature, name: ('great', '.'), importance: 0.001356
+93. feature, name: ('it', "'s"), importance: 0.001355
+94. feature, name: ('to', 'stay'), importance: 0.001347
+95. feature, name: ('again', '!'), importance: 0.001344
+96. feature, name: ('good', '.'), importance: 0.001340
+97. feature, name: ('clean', '.'), importance: 0.001333
+98. feature, name: ('hotel', '.'), importance: 0.001329
+99. feature, name: ('to', 'get'), importance: 0.001327
+100. feature, name: ('very', 'bad'), importance: 0.001321
+plot saved
+Done and pickle file created
+*********************************************
+n-gram
+*********************************************
+---------------------------------------------
+Bigram Naive Bayes
+---------------------------------------------
+Binary
+
+Naive Bayes Accuracy 0.588
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.78      0.65      0.71       149
+          1       0.51      0.13      0.21       168
+          2       0.53      0.96      0.68       183
+
+avg / total       0.60      0.59      0.53       500
+
+
+TF-IDF
+
+Naive Bayes Accuracy 0.638
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.73      0.73      0.73       149
+          1       0.57      0.36      0.44       168
+          2       0.61      0.82      0.70       183
+
+avg / total       0.63      0.64      0.62       500
+
+---------------------------------------------
+Bigram SVM
+---------------------------------------------
+Binary
+Starting 5-fold cross validation
+Done finding parameter settings, now starting to predict
+Best parameters:  {'C': 4, 'gamma': 0.01}
+
+SVM Accuracy 0.68
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.80      0.70      0.75       149
+          1       0.56      0.69      0.62       168
+          2       0.74      0.66      0.70       183
+
+avg / total       0.70      0.68      0.68       500
+
+TF-IDF
+Starting 5-fold cross validation
+Done finding parameter settings, now starting to predict
+Best parameters:  {'C': 4, 'gamma': 1}
+
+SVM Accuracy 0.678
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.73      0.81      0.76       149
+          1       0.57      0.61      0.59       168
+          2       0.75      0.63      0.69       183
+
+avg / total       0.68      0.68      0.68       500
+
+Done making trigrams from train set
+Starting counting trigrams...
+Done counting train set
+Done counting test set
+Binarizing and dumping files
+Done
+Starting tfidf vectors...
+Done
+Starting feature selection using CART random forests on binary files
+---------------------------------------------
+
+Feature ranking for Trigram_binary task:
+1. feature, name: ('i', 'will', 'never'), importance: 0.004819
+2. feature, name: ('[', '...', ']'), importance: 0.003773
+3. feature, name: ('did', "n't", 'work'), importance: 0.003764
+4. feature, name: ('will', 'never', 'stay'), importance: 0.003159
+5. feature, name: ('very', 'clean', 'and'), importance: 0.002924
+6. feature, name: ('room', 'was', 'not'), importance: 0.002831
+7. feature, name: ('the', 'front', 'desk'), importance: 0.002679
+8. feature, name: ('not', 'worth', 'the'), importance: 0.002628
+9. feature, name: ('was', 'great', '.'), importance: 0.002531
+10. feature, name: ('was', 'a', 'great'), importance: 0.002358
+11. feature, name: ('in', 'the', 'room'), importance: 0.002287
+12. feature, name: ('would', 'not', 'recommend'), importance: 0.002179
+13. feature, name: ('i', 'had', 'to'), importance: 0.002157
+14. feature, name: ('for', 'the', 'price'), importance: 0.002085
+15. feature, name: ('on', 'the', 'floor'), importance: 0.002079
+16. feature, name: ('the', 'rooms', 'are'), importance: 0.001920
+17. feature, name: ('within', 'walking', 'distance'), importance: 0.001908
+18. feature, name: ('i', 'would', 'not'), importance: 0.001894
+19. feature, name: ('the', 'hotel', 'was'), importance: 0.001853
+20. feature, name: ("n't", 'stay', 'here'), importance: 0.001846
+21. feature, name: ('the', 'staff', 'was'), importance: 0.001818
+22. feature, name: ('room', 'was', 'clean'), importance: 0.001795
+23. feature, name: ('at', 'all', '.'), importance: 0.001787
+24. feature, name: ('in', 'the', 'bathroom'), importance: 0.001755
+25. feature, name: ('walking', 'distance', 'to'), importance: 0.001746
+26. feature, name: ('never', 'stay', 'here'), importance: 0.001716
+27. feature, name: ('not', 'recommend', 'this'), importance: 0.001695
+28. feature, name: ('of', 'the', 'best'), importance: 0.001674
+29. feature, name: (',', 'but', 'the'), importance: 0.001668
+30. feature, name: ('here', 'again', '!'), importance: 0.001658
+31. feature, name: ('was', 'a', 'little'), importance: 0.001647
+32. feature, name: ('to', 'this', 'hotel'), importance: 0.001632
+33. feature, name: ('will', 'stay', 'there'), importance: 0.001603
+34. feature, name: ('very', 'friendly', 'and'), importance: 0.001586
+35. feature, name: ('not', 'stay', 'here'), importance: 0.001579
+36. feature, name: ('the', 'hotel', 'is'), importance: 0.001527
+37. feature, name: ('was', 'a', 'good'), importance: 0.001510
+38. feature, name: ('this', 'hotel', '.'), importance: 0.001481
+39. feature, name: ('to', 'san', 'diego'), importance: 0.001469
+40. feature, name: ('the', 'room', 'was'), importance: 0.001427
+41. feature, name: ('the', 'location', 'is'), importance: 0.001410
+42. feature, name: ('very', 'nice', 'and'), importance: 0.001403
+43. feature, name: ('in', 'the', 'hotel'), importance: 0.001381
+44. feature, name: ('was', 'a', 'perfect'), importance: 0.001318
+45. feature, name: ('everything', 'was', 'perfect'), importance: 0.001294
+46. feature, name: ('was', 'not', 'clean'), importance: 0.001293
+47. feature, name: ('was', 'wonderful', '.'), importance: 0.001277
+48. feature, name: ('never', 'stay', 'at'), importance: 0.001272
+49. feature, name: ('a', 'great', 'time'), importance: 0.001269
+50. feature, name: ('and', 'when', 'we'), importance: 0.001266
+51. feature, name: ('room', 'was', 'small'), importance: 0.001256
+52. feature, name: ('to', 'a', 'suite'), importance: 0.001238
+53. feature, name: ('we', 'had', 'to'), importance: 0.001227
+54. feature, name: ('will', 'be', 'back'), importance: 0.001215
+55. feature, name: ('i', 'did', 'not'), importance: 0.001204
+56. feature, name: ('will', 'not', 'stay'), importance: 0.001177
+57. feature, name: ('stay', 'away', '!'), importance: 0.001177
+58. feature, name: ('that', 'i', 'had'), importance: 0.001174
+59. feature, name: ('!', '!', '!'), importance: 0.001129
+60. feature, name: ('i', 'would', "n't"), importance: 0.001121
+61. feature, name: ('the', 'floor', '.'), importance: 0.001118
+62. feature, name: ('not', 'stay', 'there'), importance: 0.001111
+63. feature, name: (',', 'i', 'was'), importance: 0.001111
+64. feature, name: ('was', 'dirty', '.'), importance: 0.001111
+65. feature, name: ('very', 'comfortable', 'bed'), importance: 0.001109
+66. feature, name: ('staff', 'was', 'very'), importance: 0.001099
+67. feature, name: ('there', 'is', 'no'), importance: 0.001099
+68. feature, name: ('i', 'do', 'not'), importance: 0.001094
+69. feature, name: ('it', 'was', 'clean'), importance: 0.001078
+70. feature, name: ('if', 'you', "'re"), importance: 0.001078
+71. feature, name: ('was', 'perfect', '.'), importance: 0.001062
+72. feature, name: ('the', 'floor', 'was'), importance: 0.001052
+73. feature, name: ('wonderful', ':', ')'), importance: 0.001045
+74. feature, name: ('very', 'helpful', '.'), importance: 0.001042
+75. feature, name: ('all', 'night', 'long'), importance: 0.001042
+76. feature, name: ('very', 'nice', 'hotel'), importance: 0.001038
+77. feature, name: ('not', 'a', 'good'), importance: 0.001034
+78. feature, name: ('walking', 'distance', '.'), importance: 0.001033
+79. feature, name: ('on', 'the', 'phone'), importance: 0.001027
+80. feature, name: ('very', 'nice', 'stay'), importance: 0.001016
+81. feature, name: ('in', 'san', 'francisco'), importance: 0.001011
+82. feature, name: ('there', 'was', 'no'), importance: 0.001006
+83. feature, name: ('good', 'value', 'for'), importance: 0.001005
+84. feature, name: ('enjoyed', 'our', 'stay'), importance: 0.001000
+85. feature, name: ('this', 'hotel', 'was'), importance: 0.000998
+86. feature, name: ('were', 'able', 'to'), importance: 0.000995
+87. feature, name: ('we', 'loved', 'the'), importance: 0.000986
+88. feature, name: ('it', 'was', 'not'), importance: 0.000982
+89. feature, name: ('the', 'price', '.'), importance: 0.000979
+90. feature, name: ('i', 'will', 'not'), importance: 0.000973
+91. feature, name: ('the', 'hotel', '.'), importance: 0.000969
+92. feature, name: ('my', 'room', '.'), importance: 0.000969
+93. feature, name: ('very', 'close', 'to'), importance: 0.000968
+94. feature, name: ('value', 'for', 'the'), importance: 0.000961
+95. feature, name: ('never', 'stay', 'there'), importance: 0.000960
+96. feature, name: ('tr\xc3\xa8s', 'bien', 'situ\xc3\xa9'), importance: 0.000956
+97. feature, name: ('had', 'a', 'great'), importance: 0.000954
+98. feature, name: ('in', 'the', 'shower'), importance: 0.000953
+99. feature, name: ('great', 'location', ','), importance: 0.000953
+100. feature, name: ('trying', 'to', 'get'), importance: 0.000950
+plot saved
+Done and pickle file created
+Starting feature selection using CART random forests on TF-IDF
+---------------------------------------------
+
+Feature ranking for Trigram_TF-IDF task:
+1. feature, name: ('i', 'will', 'never'), importance: 0.004131
+2. feature, name: ('will', 'never', 'stay'), importance: 0.002918
+3. feature, name: ('the', 'staff', 'was'), importance: 0.002433
+4. feature, name: ('[', '...', ']'), importance: 0.002373
+5. feature, name: ('did', "n't", 'work'), importance: 0.002362
+6. feature, name: ('room', 'was', 'not'), importance: 0.002319
+7. feature, name: ('very', 'clean', 'and'), importance: 0.002248
+8. feature, name: ('the', 'hotel', 'was'), importance: 0.002061
+9. feature, name: ('the', 'hotel', 'is'), importance: 0.001887
+10. feature, name: ('on', 'the', 'floor'), importance: 0.001861
+11. feature, name: ('i', 'would', 'not'), importance: 0.001843
+12. feature, name: ('the', 'room', 'was'), importance: 0.001675
+13. feature, name: ('within', 'walking', 'distance'), importance: 0.001670
+14. feature, name: ('i', 'had', 'to'), importance: 0.001665
+15. feature, name: ('for', 'the', 'price'), importance: 0.001657
+16. feature, name: ('never', 'stay', 'here'), importance: 0.001642
+17. feature, name: ("n't", 'stay', 'here'), importance: 0.001628
+18. feature, name: ('very', 'nice', 'and'), importance: 0.001604
+19. feature, name: ('the', 'front', 'desk'), importance: 0.001592
+20. feature, name: ('the', 'rooms', 'are'), importance: 0.001553
+21. feature, name: ('here', 'again', '!'), importance: 0.001536
+22. feature, name: ('was', 'great', '.'), importance: 0.001490
+23. feature, name: ('will', 'not', 'stay'), importance: 0.001484
+24. feature, name: ('in', 'the', 'room'), importance: 0.001447
+25. feature, name: ('at', 'all', '.'), importance: 0.001439
+26. feature, name: (',', 'but', 'the'), importance: 0.001356
+27. feature, name: ('everything', 'was', 'perfect'), importance: 0.001341
+28. feature, name: ('room', 'was', 'clean'), importance: 0.001318
+29. feature, name: ('walking', 'distance', '.'), importance: 0.001292
+30. feature, name: ('the', 'location', 'is'), importance: 0.001287
+31. feature, name: ('this', 'hotel', '.'), importance: 0.001278
+32. feature, name: ('to', 'san', 'diego'), importance: 0.001277
+33. feature, name: ('walking', 'distance', 'to'), importance: 0.001264
+34. feature, name: ('not', 'stay', 'here'), importance: 0.001244
+35. feature, name: ('called', 'the', 'front'), importance: 0.001216
+36. feature, name: ('would', 'not', 'recommend'), importance: 0.001205
+37. feature, name: ('very', 'nice', 'hotel'), importance: 0.001197
+38. feature, name: ('to', 'this', 'hotel'), importance: 0.001181
+39. feature, name: ('not', 'want', 'to'), importance: 0.001178
+40. feature, name: ('in', 'the', 'bathroom'), importance: 0.001175
+41. feature, name: ('will', 'be', 'back'), importance: 0.001169
+42. feature, name: ('my', 'room', '.'), importance: 0.001165
+43. feature, name: ('great', 'location', 'for'), importance: 0.001134
+44. feature, name: ('not', 'worth', 'the'), importance: 0.001132
+45. feature, name: ('was', 'a', 'perfect'), importance: 0.001126
+46. feature, name: ('in', 'san', 'francisco'), importance: 0.001109
+47. feature, name: ('was', 'a', 'great'), importance: 0.001102
+48. feature, name: ('not', 'recommend', 'this'), importance: 0.001089
+49. feature, name: ('was', 'dirty', '.'), importance: 0.001088
+50. feature, name: ('that', 'i', 'had'), importance: 0.001087
+51. feature, name: ('very', 'comfortable', 'bed'), importance: 0.001073
+52. feature, name: ('very', 'nice', 'stay'), importance: 0.001070
+53. feature, name: ('wonderful', ':', ')'), importance: 0.001065
+54. feature, name: ('on', 'the', 'phone'), importance: 0.001062
+55. feature, name: ('staff', 'was', 'very'), importance: 0.001048
+56. feature, name: ('was', 'wonderful', '.'), importance: 0.001048
+57. feature, name: ('very', 'helpful', '.'), importance: 0.001043
+58. feature, name: ('i', 'do', 'not'), importance: 0.001040
+59. feature, name: ('with', 'all', 'the'), importance: 0.001019
+60. feature, name: ('very', 'friendly', 'and'), importance: 0.001013
+61. feature, name: ('there', 'was', 'a'), importance: 0.001007
+62. feature, name: ('of', 'the', 'best'), importance: 0.001002
+63. feature, name: ('tr\xc3\xa8s', 'bien', 'situ\xc3\xa9'), importance: 0.001001
+64. feature, name: ('was', 'not', 'clean'), importance: 0.001000
+65. feature, name: ('i', 'will', 'not'), importance: 0.000995
+66. feature, name: ('was', 'a', 'little'), importance: 0.000981
+67. feature, name: ('stay', 'away', '!'), importance: 0.000973
+68. feature, name: ('i', 'stayed', 'at'), importance: 0.000961
+69. feature, name: ('!', '!', '!'), importance: 0.000956
+70. feature, name: ('not', 'a', 'good'), importance: 0.000945
+71. feature, name: ('was', 'a', 'good'), importance: 0.000937
+72. feature, name: ('this', 'was', 'the'), importance: 0.000937
+73. feature, name: ('good', 'value', 'for'), importance: 0.000931
+74. feature, name: ('were', 'able', 'to'), importance: 0.000930
+75. feature, name: ('the', 'location', 'was'), importance: 0.000919
+76. feature, name: ('do', 'not', 'recommend'), importance: 0.000918
+77. feature, name: ('there', 'was', 'no'), importance: 0.000911
+78. feature, name: ('was', 'perfect', '.'), importance: 0.000903
+79. feature, name: ('value', 'for', 'the'), importance: 0.000899
+80. feature, name: ('i', 'wo', "n't"), importance: 0.000897
+81. feature, name: ('we', 'had', 'to'), importance: 0.000894
+82. feature, name: ('great', 'location', ','), importance: 0.000893
+83. feature, name: ('stay', 'there', 'again'), importance: 0.000889
+84. feature, name: ('enjoyed', 'our', 'stay'), importance: 0.000882
+85. feature, name: ('never', 'stay', 'at'), importance: 0.000881
+86. feature, name: ('and', 'when', 'we'), importance: 0.000879
+87. feature, name: ('had', 'a', 'great'), importance: 0.000867
+88. feature, name: ('it', 'was', 'a'), importance: 0.000864
+89. feature, name: ('view', 'of', 'the'), importance: 0.000863
+90. feature, name: ('place', 'to', 'stay'), importance: 0.000861
+91. feature, name: ('and', 'the', 'staff'), importance: 0.000859
+92. feature, name: ('staff', 'is', 'very'), importance: 0.000859
+93. feature, name: ('was', 'the', 'worst'), importance: 0.000852
+94. feature, name: ('it', 'was', 'clean'), importance: 0.000849
+95. feature, name: ('the', 'next', 'room'), importance: 0.000849
+96. feature, name: ('i', 'would', "n't"), importance: 0.000843
+97. feature, name: ('a', 'great', 'view'), importance: 0.000842
+98. feature, name: ('outside', 'the', 'hotel'), importance: 0.000842
+99. feature, name: ('staff', 'was', 'friendly'), importance: 0.000838
+100. feature, name: ('a', 'great', 'time'), importance: 0.000831
+plot saved
+Done and pickle file created
+---------------------------------------------
+Trigram Naive Bayes 
+---------------------------------------------
+Binary
+
+Naive Bayes Accuracy 0.546
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.80      0.47      0.59       149
+          1       0.43      0.85      0.57       168
+          2       0.73      0.33      0.46       183
+
+avg / total       0.65      0.55      0.54       500
+
+TF_IDF
+
+Naive Bayes Accuracy 0.574
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.68      0.65      0.67       149
+          1       0.45      0.62      0.52       168
+          2       0.68      0.47      0.56       183
+
+avg / total       0.60      0.57      0.58       500
+
+
+---------------------------------------------
+Trigram SVM 
+---------------------------------------------
+Binary
+Starting 5-fold cross validation
+Done finding parameter settings, now starting to predict
+Best parameters:  {'C': 32, 'gamma': 0.01}
+
+SVM Accuracy 0.572
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.74      0.60      0.66       149
+          1       0.45      0.64      0.53       168
+          2       0.65      0.48      0.55       183
+
+avg / total       0.61      0.57      0.58       500
+
+TF_IDF
+Starting 5-fold cross validation
+Done finding parameter settings, now starting to predict
+Best parameters:  {'C': 16, 'gamma': 1}
+
+SVM Accuracy 0.576
+
+Detailed classification report:
+
+             precision    recall  f1-score   support
+
+          0       0.67      0.70      0.68       149
+          1       0.45      0.41      0.43       168
+          2       0.61      0.63      0.62       183
+
+avg / total       0.57      0.58      0.57       500
+
