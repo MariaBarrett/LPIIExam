@@ -10,7 +10,6 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.feature_extraction.text import TfidfTransformer
 import bow_unigram_Keith as keithbow
-from makedataset import *
 from ngram import *
 
 SVC = SVC(kernel="rbf")
