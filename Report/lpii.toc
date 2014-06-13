@@ -1,0 +1,21 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {section}{\numberline {2}Constructing the dataset}{2}{section.2}
+\contentsline {section}{\numberline {3}On Python Libraries: Sci-Kit Learn \& NLTK}{4}{section.3}
+\contentsline {section}{\numberline {4}Method}{4}{section.4}
+\contentsline {subsection}{\numberline {4.1}Classifiers}{4}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Pre-processing}{5}{subsection.4.2}
+\contentsline {section}{\numberline {5}Methods}{7}{section.5}
+\contentsline {subsection}{\numberline {5.1}Lists of words expressing polarity or subjectivity}{7}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}Our wordlist approach}{7}{subsubsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.2}Simple Classification}{8}{subsubsection.5.1.2}
+\contentsline {subsection}{\numberline {5.2}Bag-of-Words}{9}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}Implementation}{10}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}Results}{11}{subsubsection.5.2.2}
+\contentsline {subsubsection}{\numberline {5.2.3}Discussion}{12}{subsubsection.5.2.3}
+\contentsline {subsection}{\numberline {5.3}Methods based on n-grams}{12}{subsection.5.3}
+\contentsline {subsubsection}{\numberline {5.3.1}Making n-grams}{12}{subsubsection.5.3.1}
+\contentsline {subsubsection}{\numberline {5.3.2}Feature selection using decision tree}{13}{subsubsection.5.3.2}
+\contentsline {subsection}{\numberline {5.4}Valence shifters}{15}{subsection.5.4}
+\contentsline {section}{\numberline {6}Results}{15}{section.6}
+\contentsline {section}{\numberline {7}Discussion}{15}{section.7}
+\contentsline {subsection}{\numberline {7.1}Why is the initial distribution skewed?}{15}{subsection.7.1}

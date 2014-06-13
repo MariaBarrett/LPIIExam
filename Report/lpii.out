@@ -1,0 +1,21 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Constructing the dataset}{}% 2
+\BOOKMARK [1][-]{section.3}{On Python Libraries: Sci-Kit Learn \046 NLTK}{}% 3
+\BOOKMARK [1][-]{section.4}{Method}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Classifiers}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Pre-processing}{section.4}% 6
+\BOOKMARK [1][-]{section.5}{Methods}{}% 7
+\BOOKMARK [2][-]{subsection.5.1}{Lists of words expressing polarity or subjectivity}{section.5}% 8
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Our wordlist approach}{subsection.5.1}% 9
+\BOOKMARK [3][-]{subsubsection.5.1.2}{Simple Classification}{subsection.5.1}% 10
+\BOOKMARK [2][-]{subsection.5.2}{Bag-of-Words}{section.5}% 11
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Implementation}{subsection.5.2}% 12
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Results}{subsection.5.2}% 13
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Discussion}{subsection.5.2}% 14
+\BOOKMARK [2][-]{subsection.5.3}{Methods based on n-grams}{section.5}% 15
+\BOOKMARK [3][-]{subsubsection.5.3.1}{Making n-grams}{subsection.5.3}% 16
+\BOOKMARK [3][-]{subsubsection.5.3.2}{Feature selection using decision tree}{subsection.5.3}% 17
+\BOOKMARK [2][-]{subsection.5.4}{Valence shifters}{section.5}% 18
+\BOOKMARK [1][-]{section.6}{Results}{}% 19
+\BOOKMARK [1][-]{section.7}{Discussion}{}% 20
+\BOOKMARK [2][-]{subsection.7.1}{Why is the initial distribution skewed?}{section.7}% 21

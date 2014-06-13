@@ -1,0 +1,10 @@
+PWD C:/Users/Yarr/Google Drive/LPII
+INPUT c:/texlive/2013/texmf.cnf
+INPUT c:/texlive/2013/texmf-dist/web2c/texmf.cnf
+INPUT c:/texlive/2013/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT c:/Users/Yarr/Google Drive/LPII/title.tex
+OUTPUT C:/Users/Yarr/Google Drive/LPII/title.log
+INPUT c:/texlive/2013/texmf-dist/fonts/map/fontname/texfonts.map
+INPUT c:/texlive/2013/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm
+INPUT c:/texlive/2013/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
+INPUT c:/texlive/2013/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
