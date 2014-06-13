@@ -194,164 +194,173 @@ def RunSVM(X_train, y_train, X_test, y_test):
 #####################################################
 #### MAIN ###########################################
 #####################################################
+def main():
+	print "Running Bag-Of-Words method"
+	print "*" * 20
+	X_train = dataset[:2500]
+	y_train = targets[:2500]
 
-X_train = dataset[:2500]
-y_train = targets[:2500]
-
-X_test = dataset[2500:]
-y_test = targets[2500:]
-
-''' create a set of words from the reviews in the train set '''
-counter = C()
-
-for sents in X_train:
-	for words in sents:
-		counter += C(words) #create counter of words
+	X_test = dataset[2500:]
+	y_test = targets[2500:]
 
 
+	X_train = dataset[100:225]
+	y_train = targets[100:225]
 
-negdataset = shifter(dataset)
-X_train_neg = negdataset[:2500]
-X_test_neg = negdataset[2500:]
+	X_test = dataset[25:50]
+	y_test = targets[25:50]
 
+	''' create a set of words from the reviews in the train set '''
+	counter = C()
 
-''' create set of feature words from the shifted dataset '''
-negCounter = C()
-for sents in X_train_neg:
-	for words in sents:
-		negCounter += C(words) 
-
-
-print "No. of features (all):", len(counter)
-print "No. of features (all + valence shifters):", len(negCounter)
+	for sents in X_train:
+		for words in sents:
+			counter += C(words) #create counter of words
 
 
 
+	negdataset = shifter(dataset)
+	X_train_neg = negdataset[:2500]
+	X_test_neg = negdataset[2500:]
 
 
-''' Create Bag of Words from training words ''' 
-X_train_binarized = CreateBOW(counter, X_train, y_train, "pres")
-X_test_binarized = CreateBOW(counter, X_test, y_test, "pres")
-
-print "Naive Bayes, All Features, Presence Only"
-RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
-print
-print "SVM, All Features, Presence Only"
-transformer = TfidfTransformer()
-X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
-X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
-
-RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
-print
+	''' create set of feature words from the shifted dataset '''
+	negCounter = C()
+	for sents in X_train_neg:
+		for words in sents:
+			negCounter += C(words) 
 
 
-
-X_train_binarized = CreateBOW(counter, X_train, y_train, "freq")
-X_test_binarized = CreateBOW(counter, X_test, y_test, "freq")
-
-print "Naive Bayes, All Features, Word Frequency"
-RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
-print
-print "SVM, All Features, Word Frequency"
-transformer = TfidfTransformer()
-X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
-X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
-
-RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
-print
-
-
-X_train_binarized = CreateBOW(negCounter, X_train_neg, y_train, "pres")
-X_test_binarized = CreateBOW(negCounter, X_test_neg, y_test, "pres")
-
-print "Naive Bayes, All Features + Negation/intensifier List, Presence Only"
-RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
-print
-print "SVM, All Features + Negation/intensifier List, Presence Only"
-transformer = TfidfTransformer()
-X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
-X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
-RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
-print 
+	print "No. of features (all):", len(counter)
+	print "No. of features (all + valence shifters):", len(negCounter)
 
 
 
-X_train_binarized = CreateBOW(negCounter, X_train_neg, y_train, "freq")
-X_test_binarized = CreateBOW(negCounter, X_test_neg, y_test, "freq")
-
-print "Naive Bayes, All Features + Negation/intensifier List, Word Frequency"
-RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
-print
-print "SVM, All Features + Negation/intensifier List, Word Frequency"
-transformer = TfidfTransformer()
-X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
-X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
-RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
-print 
 
 
+	''' Create Bag of Words from training words ''' 
+	X_train_binarized = CreateBOW(counter, X_train, y_train, "pres")
+	X_test_binarized = CreateBOW(counter, X_test, y_test, "pres")
 
-counter = {k: counter[k] for k in counter if counter[k]>1} #take only words appearing more than once
-print "No. of features (reduced):", len(counter)
+	print "Naive Bayes, All Features, Presence Only"
+	RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
+	print
+	print "SVM, All Features, Presence Only"
+	transformer = TfidfTransformer()
+	X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+	X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
 
-negCounter = {k: negCounter[k] for k in negCounter if negCounter[k] > 1}
-print "No. of features (reduced + valence shifters):", len(negCounter)
+	RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
+	print
 
 
 
-''' Create Bag of Words from training words ''' 
-X_train_binarized = CreateBOW(counter, X_train, y_train, "pres")
-X_test_binarized = CreateBOW(counter, X_test, y_test, "pres")
+	X_train_binarized = CreateBOW(counter, X_train, y_train, "freq")
+	X_test_binarized = CreateBOW(counter, X_test, y_test, "freq")
 
-print "Naive Bayes, Reduced Features, Presence Only"
-RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
-print
-print "SVM, Reduced Features, Presence Only"
-transformer = TfidfTransformer()
-X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
-X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
-RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
-print
+	print "Naive Bayes, All Features, Word Frequency"
+	RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
+	print
+	print "SVM, All Features, Word Frequency"
+	transformer = TfidfTransformer()
+	X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+	X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
 
-
-X_train_binarized = CreateBOW(counter, X_train, y_train, "freq")
-X_test_binarized = CreateBOW(counter, X_test, y_test, "freq")
-
-print "Naive Bayes, Reduced Features, Word Frequency"
-RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
-print
-print "SVM, Reduced Features, Word Frequency"
-transformer = TfidfTransformer()
-X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
-X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
-RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
-print
+	RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
+	print
 
 
-X_train_binarized = CreateBOW(negCounter, X_train_neg, y_train, "pres")
-X_test_binarized = CreateBOW(negCounter, X_test_neg, y_test, "pres")
+	X_train_binarized = CreateBOW(negCounter, X_train_neg, y_train, "pres")
+	X_test_binarized = CreateBOW(negCounter, X_test_neg, y_test, "pres")
 
-print "Naive Bayes, Reduced Features + Negation/intensifier List, Presence Only"
-RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
-print
-print "SVM, Reduced Features + Negation/intensifier List, Presence Only"
-transformer = TfidfTransformer()
-X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
-X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
-RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
-print 
+	print "Naive Bayes, All Features + Negation/intensifier List, Presence Only"
+	RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
+	print
+	print "SVM, All Features + Negation/intensifier List, Presence Only"
+	transformer = TfidfTransformer()
+	X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+	X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
+	RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
+	print 
 
 
-X_train_binarized = CreateBOW(negCounter, X_train_neg, y_train, "freq")
-X_test_binarized = CreateBOW(negCounter, X_test_neg, y_test, "freq")
 
-print "Naive Bayes, Reduced Features + Negation/intensifier List, Word Frequency"
-RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
-print
-print "SVM, Reduced Features + Negation/intensifier List, Word Frequency"
-transformer = TfidfTransformer()
-X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
-X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
-RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
-print 
+	X_train_binarized = CreateBOW(negCounter, X_train_neg, y_train, "freq")
+	X_test_binarized = CreateBOW(negCounter, X_test_neg, y_test, "freq")
+
+	print "Naive Bayes, All Features + Negation/intensifier List, Word Frequency"
+	RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
+	print
+	print "SVM, All Features + Negation/intensifier List, Word Frequency"
+	transformer = TfidfTransformer()
+	X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+	X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
+	RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
+	print 
+
+
+
+	counter = {k: counter[k] for k in counter if counter[k]>1} #take only words appearing more than once
+	print "No. of features (reduced):", len(counter)
+
+	negCounter = {k: negCounter[k] for k in negCounter if negCounter[k] > 1}
+	print "No. of features (reduced + valence shifters):", len(negCounter)
+
+
+
+	''' Create Bag of Words from training words ''' 
+	X_train_binarized = CreateBOW(counter, X_train, y_train, "pres")
+	X_test_binarized = CreateBOW(counter, X_test, y_test, "pres")
+
+	print "Naive Bayes, Reduced Features, Presence Only"
+	RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
+	print
+	print "SVM, Reduced Features, Presence Only"
+	transformer = TfidfTransformer()
+	X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+	X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
+	RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
+	print
+
+
+	X_train_binarized = CreateBOW(counter, X_train, y_train, "freq")
+	X_test_binarized = CreateBOW(counter, X_test, y_test, "freq")
+
+	print "Naive Bayes, Reduced Features, Word Frequency"
+	RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
+	print
+	print "SVM, Reduced Features, Word Frequency"
+	transformer = TfidfTransformer()
+	X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+	X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
+	RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
+	print
+
+
+	X_train_binarized = CreateBOW(negCounter, X_train_neg, y_train, "pres")
+	X_test_binarized = CreateBOW(negCounter, X_test_neg, y_test, "pres")
+
+	print "Naive Bayes, Reduced Features + Negation/intensifier List, Presence Only"
+	RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
+	print
+	print "SVM, Reduced Features + Negation/intensifier List, Presence Only"
+	transformer = TfidfTransformer()
+	X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+	X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
+	RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
+	print 
+
+
+	X_train_binarized = CreateBOW(negCounter, X_train_neg, y_train, "freq")
+	X_test_binarized = CreateBOW(negCounter, X_test_neg, y_test, "freq")
+
+	print "Naive Bayes, Reduced Features + Negation/intensifier List, Word Frequency"
+	RunNaiveBayes(X_train_binarized, y_train, X_test_binarized, y_test)
+	print
+	print "SVM, Reduced Features + Negation/intensifier List, Word Frequency"
+	transformer = TfidfTransformer()
+	X_train_binarized = transformer.fit_transform(X_train_binarized).toarray()
+	X_test_binarized = transformer.fit_transform(X_test_binarized).toarray()
+	RunSVM(X_train_binarized, y_train, X_test_binarized, y_test)
+	print 
 
