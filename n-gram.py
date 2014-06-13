@@ -187,6 +187,7 @@ def NaiveBayes(X_train, y_train, X_test, y_test):
 #					Calling
 #
 #######################################################################################
+n = 1000 #number of most important indices to use
 
 #---------------------------------------------------------------------------------------
 #
@@ -260,8 +261,8 @@ print "*"*45
 #Bigram
 
 #only the most important features
-indices_important_feats_bi_tfidf = indices_important_feats_bi_tfidf[:1000]
-indices_important_feats_bi_bin = indices_important_feats_bi_bin[:1000]
+indices_important_feats_bi_tfidf = indices_important_feats_bi_tfidf[:n]
+indices_important_feats_bi_bin = indices_important_feats_bi_bin[:n]
 
 X_train_bi_tfidf_sel = X_train_bi_tfidf[:,indices_important_feats_bi_tfidf]
 X_test_bi_tfidf_sel = X_test_bi_tfidf[:,indices_important_feats_bi_tfidf]
@@ -354,8 +355,8 @@ print "Done and pickle file created"
 #End making pickle files
 
 #Only taking the most important features
-indices_important_feats_tri_bin = indices_important_feats_tri_bin[:1000]
-indices_important_feats_tri_tfidf = indices_important_feats_tri_tfidf[:1000]
+indices_important_feats_tri_bin = indices_important_feats_tri_bin[:n]
+indices_important_feats_tri_tfidf = indices_important_feats_tri_tfidf[:n]
 
 X_train_tri_feat_sel_bin = X_train_tri_binary[:,indices_important_feats_tri_bin]
 X_test_tri_feat_sel_bin = X_test_tri_binary[:,indices_important_feats_tri_bin]
