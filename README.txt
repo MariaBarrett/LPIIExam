@@ -1,58 +1,27 @@
 README
 
-The following libraries must be installed to run this code:
+The following libraries must be installed prior to running this code:
 csv
 nltk
 collections
 random
 pickle
 numpy
+sklearn
+pylab
+operator
+cPickle  load, dump
 
- numpy as np
- pickle
- nltk
- polarity
- collections  Counter
- sklearn.svm  SVC
- sklearn.grid_search  GridSearchCV
- sklearn.neighbors  KNeighborsClassifier
- sklearn.naive_bayes  GaussianNB
- sklearn.feature_extraction.text  TfidfTransformer
- bow_unigram_Keith as keithbow
- ngram  *
+dataset.p and targets.p were created by running make-dataset.py. You don't have to run it. It's already done. 
 
- numpy as np
- pickle
- nltk
- sklearn  svm, naive_bayes, grid_search
- sklearn.metrics  classification_report
- sklearn.ensemble  ExtraTreesClassifier
- sklearn.feature_extraction.text  CountVectorizer, TfidfTransformer
- sklearn.preprocessing  Binarizer
- pylab as pl
- operator
- collections  Counter
+############################################################
+How to
+###########################################################
 
- numpy as np
- pickle
- nltk
- collections  Counter
- sklearn.svm  SVC
- sklearn.grid_search  GridSearchCV
- sklearn.neighbors  KNeighborsClassifier
- sklearn.naive_bayes  GaussianNB
- sklearn.feature_extraction.text  TfidfTransformer
+Run main.py from your favorite IDE
+Main.py calls the other files as well as dataset.p and targets.p and reproduce all results from the report.
 
- numpy as np
- cPickle  load, dump
- nltk
- nltk  wordpunct_tokenize as punct
- sklearn  svm, naive_bayes, grid_search
- sklearn.metrics  classification_report
- sklearn.ensemble  ExtraTreesClassifier
- sklearn.naive_bayes  GaussianNB
- pylab as pl
- operator
- collections  Counter as C
- sklearn.grid_search  GridSearchCV
- sklearn.feature_extraction.text  TfidfTransformer
+First it runs n-gram.py, which takes quite a while to run
+Then it runs word lists (in the main file) with / without valence shifters
+
+Lastly it runs bow_unigram_Keith.py. 
