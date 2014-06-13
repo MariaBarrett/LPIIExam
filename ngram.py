@@ -105,7 +105,7 @@ def tfidf(X_train, X_test):
 
 """ 
 tree expect a train set and adjacent labels as well as names of all features (for printing)
-
+It is an adapted implementation of the example code here: http://scikit-learn.org/stable/auto_examples/ensemble/plot_forest_importances.html
 """
 def tree(train_data, train_labels, all_bigrams, task):
 	forest = ExtraTreesClassifier(n_estimators=100, random_state=0)
