@@ -186,6 +186,10 @@ def NaiveBayes(X_train, y_train, X_test, y_test):
 #######################################################################################
 n = 1000 #number of most important indices to use
 
+print "*"*45
+print "n-gram"
+print "*"*45
+
 #---------------------------------------------------------------------------------------
 #
 #	Make section below active if you have already created the pickle files
@@ -250,10 +254,6 @@ print "Done and pickle file created"
 #---------------------------------------------------------------------------------------
 #End making pickle files
 
-
-print "*"*45
-print "n-gram"
-print "*"*45
 
 #Bigram
 
