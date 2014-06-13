@@ -98,5 +98,5 @@ for key in oversampled_dist:
 print "Oversampled freqdist", oversampled_freqdist
 balanced_targets, balanced_dataset = balancedataset(oversampled_targets, oversampled_dataset)
 
-pickle.dump(balanced_targets, open( "targets.p", "wb" ) )
-pickle.dump(balanced_dataset, open( "dataset.p", "wb" ) )
+pickle.dump(balanced_targets, open( "targets_easy.p", "wb" ) )
+pickle.dump(balanced_dataset, open( "dataset_easy.p", "wb" ) )
