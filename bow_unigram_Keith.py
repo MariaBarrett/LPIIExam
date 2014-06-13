@@ -14,9 +14,6 @@ from sklearn.grid_search import GridSearchCV
 from sklearn.feature_extraction.text import TfidfTransformer
 
 
-#import ngram
-
-
 targets = load( open( "targets_easy.p", "rb" ) )
 dataset = load( open( "dataset_easy.p", "rb" ) )
 
@@ -204,12 +201,6 @@ def main():
 	y_test = targets[2500:]
 
 
-	X_train = dataset[100:225]
-	y_train = targets[100:225]
-
-	X_test = dataset[25:50]
-	y_test = targets[25:50]
-
 	''' create a set of words from the reviews in the train set '''
 	counter = C()
 
@@ -218,11 +209,9 @@ def main():
 			counter += C(words) #create counter of words
 
 
-
 	negdataset = shifter(dataset)
 	X_train_neg = negdataset[:2500]
 	X_test_neg = negdataset[2500:]
-
 
 	''' create set of feature words from the shifted dataset '''
 	negCounter = C()
@@ -233,7 +222,6 @@ def main():
 
 	print "No. of features (all):", len(counter)
 	print "No. of features (all + valence shifters):", len(negCounter)
-
 
 
 
